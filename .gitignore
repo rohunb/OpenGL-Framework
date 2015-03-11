@@ -3,6 +3,7 @@
 *.lo
 *.o
 *.obj
+!/OpenGL Framework/Assets/
 
 # Precompiled Headers
 *.gch
@@ -74,6 +75,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-#Custom
-#Allow assets
-!OpenGL Framework/Assets/
+
