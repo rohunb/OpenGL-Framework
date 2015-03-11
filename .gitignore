@@ -1,5 +1,5 @@
 #Allow assets
-OpenGL Framework/OpenGL Framework/Assets/
+!OpenGL Framework/OpenGL Framework/Assets/
 
 # Compiled Object files
 *.slo
