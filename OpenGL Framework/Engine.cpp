@@ -17,6 +17,8 @@ Engine::Engine()
 	ShaderManager::LoadShader("lit_textured_Shader.vert", "lit_textured_Shader.frag", Shader::Lit_Textured);
 	ShaderManager::LoadShader("skybox_Shader.vert", "skybox_Shader.frag", Shader::Skybox);
 	ShaderManager::LoadShader("reflective.vert", "reflective.frag", Shader::Reflective);
+	ShaderManager::LoadShader("refract.vert", "refract.frag", Shader::Refract);
+	ShaderManager::LoadShader("fresnel.vert", "fresnel.frag", Shader::Fresnel);
 
 	SetupScene();
 }
@@ -42,7 +44,7 @@ void Engine::Run()
 	while (!glfwWindowShouldClose(renderer->Window()))
 	{
 		glfwPollEvents();
-		
+
 		double now = glfwGetTime();
 		double delta = now - lastTime;
 		if (delta >= (double)dt)
@@ -86,7 +88,7 @@ void Engine::Render()
 
 	//SKYBOX
 	glDepthMask(GL_FALSE);
-	
+
 	skybox->Render(camera);
 	glDepthMask(GL_TRUE);
 	glUseProgram(0);
@@ -106,8 +108,7 @@ void Engine::Render()
 	glUseProgram(0);
 	///temp for reflective
 
-	renderer->RenderGameObject(testObj, camera);
-	//quadSphere->Render(camera);
+	//renderer->RenderGameObject(testObj, camera);
 	renderer->PostRender();
 }
 
@@ -118,22 +119,22 @@ void Engine::SetupScene()
 	camera->SetProjection(53.13f, (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
 
 	skybox = new Skybox();
-	
-	light = Light(glm::vec3(-4.0f,1.0f,4.0f), glm::vec3(1.0f,1.0f,1.0f), glm::vec3(1.0f), glm::vec3(1.0f));
+
+	light = Light(glm::vec3(-4.0f, 1.0f, 4.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec3(1.0f));
 	renderer->SetLight(light);
 
-	SimpleModel* cubeModel = new SimpleModel(PrimitiveType::Cube, 
-		ShaderManager::GetShader(Shader::Lit_Untextured), 
+	SimpleModel* cubeModel = new SimpleModel(PrimitiveType::Cube,
+		ShaderManager::GetShader(Shader::Lit_Untextured),
 		Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
 	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::Diffuse);
 	//TextureManager::LoadTexture("Crate", "de.tga");
-	
+
 	SimpleModel* textureCubeModel = new SimpleModel(PrimitiveType::Cube,
 		ShaderManager::GetShader(Shader::Lit_Textured),
 		Material(TextureManager::GetTexture("Crate")));
-	
-	SimpleModel* sphereModel = new SimpleModel(PrimitiveType::Sphere, 
+
+	SimpleModel* sphereModel = new SimpleModel(PrimitiveType::Sphere,
 		ShaderManager::GetShader(Shader::Lit_Untextured),
 		Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
@@ -150,12 +151,24 @@ void Engine::SetupScene()
 		ShaderManager::GetShader(Shader::Lit_Textured));
 
 	Model* reflectSphere = new Model("Sphere Model/sphere.obj",
-		ShaderManager::GetShader(Shader::Reflective));
+		ShaderManager::GetShader(Shader::Fresnel));
+
+	TextureManager::LoadTexture("HadesShip", "ShmupShip_Hades_diffuse.tga", Texture::Diffuse);
+	Model* shipModel = new Model("HadesShip/ShmupShip_Hades.obj",
+		Material(TextureManager::GetTexture("HadesShip")),
+		ShaderManager::GetShader(Shader::Lit_Textured));
+
+	Model* reflectShip = new Model("HadesShip/ShmupShip_Hades.obj",
+		//Material(TextureManager::GetTexture("HadesShip")),
+		ShaderManager::GetShader(Shader::Refract));
 	//QuadSphere* quadSphere = new QuadSphere(4, ShaderManager::GetShader(Lit_Untextured), Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
 	//////////
 	//quadSphere = new QuadSphere(4, nullptr, Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 	///////////////
+	//testObj = new GameObject(shipModel);
+	//testObj = new GameObject(reflectShip);
+	//testObj->scale = Vec3(0.05f);
 	testObj = new GameObject(reflectSphere);
 	//testObj = new GameObject(testModel);
 	//testObj = new GameObject(reflectCube);
@@ -165,7 +178,7 @@ void Engine::SetupScene()
 	//sphere = new GameObject(sphereModel);
 
 	/*sphere = new GameObject(new SimpleModel(
-		PrimitiveType::Sphere, 
+		PrimitiveType::Sphere,
 		ShaderManager::GetShader(Lit_Untextured),
 		Material(glm::vec3(.7f,0.7f,0.7f),glm::vec3(1.0f,1.0f,1.0f),128.0f)));*/
 }

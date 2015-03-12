@@ -7,7 +7,7 @@ namespace rb
 	class Shader
 	{
 	public:
-		enum ShaderType { Unlit_Untextured, Lit_Untextured, Three_Lit_Untextured, Lit_Textured, Skybox, Reflective };
+		enum ShaderType { Unlit_Untextured, Lit_Untextured, Three_Lit_Untextured, Lit_Textured, Skybox, Reflective, Refract, Fresnel };
 		enum StdUniform { ModelMatrix, ViewMatrix, ProjectionMatrix };
 		enum StdAttrib { VertexAttrib, NormalAttrib, TexCoordAttrib, ColourAttrib };
 

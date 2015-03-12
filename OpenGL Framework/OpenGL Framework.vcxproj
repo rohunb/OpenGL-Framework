@@ -116,12 +116,16 @@
   <ItemGroup>
     <None Include="Assets\Shaders\3lit_untextured_Shader.frag" />
     <None Include="Assets\Shaders\3lit_untextured_Shader.vert" />
+    <None Include="Assets\Shaders\fresnel.frag" />
+    <None Include="Assets\Shaders\fresnel.vert" />
     <None Include="Assets\Shaders\lit_textured_Shader.frag" />
     <None Include="Assets\Shaders\lit_textured_Shader.vert" />
     <None Include="Assets\Shaders\lit_untextured_Shader.frag" />
     <None Include="Assets\Shaders\lit_untextured_Shader.vert" />
     <None Include="Assets\Shaders\reflective.frag" />
     <None Include="Assets\Shaders\reflective.vert" />
+    <None Include="Assets\Shaders\refract.frag" />
+    <None Include="Assets\Shaders\refract.vert" />
     <None Include="Assets\Shaders\skybox_Shader.frag" />
     <None Include="Assets\Shaders\skybox_Shader.vert" />
     <None Include="Assets\Shaders\unlit_untextured_Shader.frag" />
