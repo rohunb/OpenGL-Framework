@@ -1,7 +1,7 @@
 #version 330 core
 
 struct Material {
-    sampler2D texture_diffuse1;
+    sampler2D diffuseTexture;
 	//sampler2D texture_specular1;
     vec3 specular;
     float shininess;
@@ -23,8 +23,8 @@ uniform vec3 uViewPos;
 uniform Light uLight;
 uniform Material uMaterial;
 
-uniform sampler2D texture_diffuse1;
-uniform sampler2D texture_specular1;
+//uniform sampler2D texture_diffuse1;
+//uniform sampler2D texture_specular1;
 
 void main()
 {
@@ -40,8 +40,8 @@ void main()
     float specular = pow(max(dot(viewDir, reflectDir), 0.0), uMaterial.shininess);
 
     // Combine results
-    vec3 ambientColor = uLight.ambient * vec3(texture(texture_diffuse1, fragTexCoord));
-    vec3 diffuseColor = uLight.diffuse * diffuse * vec3(texture(texture_diffuse1, fragTexCoord));
+    vec3 ambientColor = uLight.ambient * vec3(texture(uMaterial.diffuseTexture, fragTexCoord));
+    vec3 diffuseColor = uLight.diffuse * diffuse * vec3(texture(uMaterial.diffuseTexture, fragTexCoord));
     vec3 specularColor = uLight.specular * specular * uMaterial.specular;
 	//vec3 specularColor = uLight.specular * specular * vec3(texture(texture_specular1,fragTexCoord));
     outColour = vec4(ambientColor + diffuseColor + specularColor, 1.0f);

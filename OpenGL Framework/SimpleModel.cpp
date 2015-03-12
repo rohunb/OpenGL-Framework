@@ -1,6 +1,8 @@
 #include "SimpleModel.h"
 #include <stdio.h>
 #include <glm\gtc\constants.hpp>
+#include "Material.h"
+#include "Shader.h"
 using namespace rb;
 SimpleModel::SimpleModel(PrimitiveType _type, Shader* _shader, Material _material)
 	:type(_type)

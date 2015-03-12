@@ -31,6 +31,8 @@ namespace rb
 		//Engine components
 		Renderer* renderer;
 		Input* input;
+
+		//Scene objects
 		GameObject* testObj;
 		Camera* camera;
 		Light light;

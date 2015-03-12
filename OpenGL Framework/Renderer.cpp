@@ -2,6 +2,9 @@
 #include <glfw3.h>
 #include <iostream>
 #include "RMatrix.h"
+#include "Shader.h"
+#include "Debug.h"
+
 using namespace rb;
 Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int windowPosY, char* windowName)
 {
@@ -12,7 +15,7 @@ Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int window
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Framework", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	/*glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(windowWidth, windowHeight);
@@ -64,15 +67,16 @@ void Renderer::RenderGameObject(const GameObject* gameObject, const Camera* came
 	//material
 	if (shader->Type() == Shader::ShaderType::Lit_Untextured)
 	{
-		glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.diffuse"), model->material.diffuse.x, model->material.diffuse.y, model->material.diffuse.z);
+		glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.diffuse"), model->material.Diffuse().x, model->material.Diffuse().y, model->material.Diffuse().z);
 	}
 	else if (shader->Type() == Shader::ShaderType::Lit_Textured)
 	{
-		glUniform1i(glGetUniformLocation(shader->Program(), "uMaterial.texture_diffuse1"), 0);
-		glBindTexture(GL_TEXTURE_2D, model->material.diffuseTextureID);
+		//Debug::Info("Renderer || model tex id: " + std::to_string(model->material.DiffuseTexture().texID));
+		glUniform1i(glGetUniformLocation(shader->Program(), "uMaterial.diffuseTexture"), 0);
+		glBindTexture(GL_TEXTURE_2D, model->material.DiffuseTexture().texID);
 	}
-	glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.specular"), model->material.specular.x, model->material.specular.y, model->material.specular.z);
-	glUniform1f(glGetUniformLocation(shader->Program(), "uMaterial.shininess"), model->material.shininess);
+	glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.specular"), model->material.Specular().x, model->material.Specular().y, model->material.Specular().z);
+	glUniform1f(glGetUniformLocation(shader->Program(), "uMaterial.shininess"), model->material.Shininess());
 	//light
 	glUniform3f(glGetUniformLocation(shader->Program(), "uLight.position"), light.position.x, light.position.y, light.position.z);
 	glUniform3f(glGetUniformLocation(shader->Program(), "uLight.ambient"), light.ambient.x, light.ambient.y, light.ambient.z);

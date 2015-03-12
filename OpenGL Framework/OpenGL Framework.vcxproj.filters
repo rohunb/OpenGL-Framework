@@ -91,6 +91,9 @@
     <ClInclude Include="RMath.h">
       <Filter>Includes</Filter>
     </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>EngineComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assets.cpp">
@@ -147,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="RVector.cpp">
       <Filter>Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>EngineComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

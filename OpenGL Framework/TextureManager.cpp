@@ -2,19 +2,31 @@
 #include <iostream>
 #include <SOIL.h>
 #include "Assets.h"
-
+#include "Debug.h"
 using namespace rb;
 TextureTable TextureManager::textureTable;
 
-void TextureManager::LoadTexture(const std::string& name, const std::string& path)
+void TextureManager::LoadTexture(const std::string& name, const std::string& path, Texture::TextureType texType)
 {
 	if (textureTable.find(name) == textureTable.end())
 	{
-		textureTable[name] = LoadFromFile(Assets::texturesPath + path);
+		textureTable[name] = Texture(LoadFromFile(Assets::texturesPath + path), texType);
 	}
 	else
 	{
 		std::cerr << "Texture " << name << " already exists in manager\n";
+	}
+}
+
+void rb::TextureManager::LoadTextureAbsPath(const string& name, const string& path, Texture::TextureType texType)
+{
+	if (textureTable.find(name) == textureTable.end())
+	{
+		textureTable[name] = Texture(LoadFromFile(path), texType);
+	}
+	else
+	{
+		Debug::Error("Texture " + name + " already exists in manager");
 	}
 }
 
@@ -23,12 +35,11 @@ void TextureManager::LoadTextures(int numAttributes)
 
 }
 
-GLuint TextureManager::GetTexture(const std::string& name)
+Texture TextureManager::GetTexture(const std::string& name)
 {
 	if (textureTable.find(name) == textureTable.end())
 	{
 		std::cerr << "Texture " << name << " not found in Manager\n";
-		return 0;
 	}
 	else
 	{

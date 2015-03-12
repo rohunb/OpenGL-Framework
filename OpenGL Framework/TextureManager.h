@@ -1,20 +1,21 @@
 #pragma once
 #include <glew.h>
 #include <map>
-#include <string>
-
+#include "RString.h"
+#include "Texture.h"
 namespace rb
 {
-	using TextureTable = std::map < std::string, GLuint > ;
+	using TextureTable = std::map <string, Texture>;
 	class TextureManager
 	{
 	public:
-		static void LoadTexture(const std::string& name, const std::string& path);
+		static void LoadTexture(const string& name, const string& path, Texture::TextureType texType);
+		static void LoadTextureAbsPath(const string& name, const string& path, Texture::TextureType texType);
 		static void LoadTextures(int numAttributes);
-		static GLuint GetTexture(const std::string& name);
+		static Texture GetTexture(const string& name);
 		static void Clear();
 	private:
 		static TextureTable textureTable;
-		static GLuint LoadFromFile(const std::string& path);
+		static GLuint LoadFromFile(const string& path);
 	};
 }

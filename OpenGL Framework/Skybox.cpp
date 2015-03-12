@@ -10,13 +10,15 @@
 // #include "glm\gtc\type_ptr.hpp"
 #include "Assets.h"
 #include "RMatrix.h"
+#include "Texture.h"
+
 using namespace rb;
 Skybox::Skybox(std::string textureName)
 	:Skybox(TextureManager::GetTexture((textureName)))
 {}
 
-Skybox::Skybox(GLuint _textureID)
-	: textureID(_textureID)
+Skybox::Skybox(Texture _texture)
+	: texture(_texture)
 {
 	Init();
 }
@@ -43,11 +45,15 @@ void Skybox::Render(Camera* camera) const
 	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
 	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	glUniform1i(glGetUniformLocation(shader->Program(), "uCubeMap"), 0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture.texID);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	glBindVertexArray(0);
 
+}
+rb::Texture rb::Skybox::GetTexture() const
+{
+	return texture;
 }
 
 void Skybox::Init()
@@ -115,9 +121,10 @@ void Skybox::Init()
 	//shader->HandleStdUniforms()
 
 	std::vector<std::string> faces{"hexagon_rt.jpg", "hexagon_lf.jpg", "hexagon_up.jpg", "hexagon_dn.jpg", "hexagon_bk.jpg", "hexagon_ft.jpg" };
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+	//std::vector<std::string> faces{ "desertsky_rt.jpg", "desertsky_lf.jpg", "desertsky_up.jpg", "desertsky_dn.jpg", "desertsky_bk.jpg", "desertsky_ft.jpg" };
+	//std::vector<std::string> faces{ "posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg" };
+	glGenTextures(1, &texture.texID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, texture.texID);
 
 	int width, height;
 	unsigned char* image;
@@ -138,3 +145,4 @@ void Skybox::Init()
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	
 }
+

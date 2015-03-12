@@ -3,7 +3,7 @@ using namespace rb;
 
 bool* Input::keyStates = new bool[1024];
 bool Input::mouseActive = false;
-float Input::sensitivity=0.5f;
+float Input::sensitivity=1.0f;
 Vec2 Input::lastMousePos = Vec2(0.0f);
 Vec2 Input::currentMousePos = Vec2(0.0f);
 Vec2 Input::mouseDelta = Vec2(0.0f);

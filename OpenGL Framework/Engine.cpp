@@ -4,7 +4,9 @@
 #include "ShaderManager.h"
 #include "Game.h"
 #include "RMatrix.h"
+#include "Assets.h"
 
+using namespace rb;
 Engine::Engine()
 {
 	renderer = new Renderer(windowWidth, windowHeight, 0, 0, "OpenGL Framework");
@@ -99,12 +101,12 @@ void Engine::Render()
 	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	glUniform3f(glGetUniformLocation(shader->Program(), "uViewPos"), camera->Position().x, camera->Position().y, camera->Position().z);
 	glUniform1i(glGetUniformLocation(shader->Program(), "uCubeMap"), 0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->TextureID());
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->GetTexture().texID);
 	model->Render();
 	glUseProgram(0);
 	///temp for reflective
 
-	//renderer->RenderGameObject(testObj, camera);
+	renderer->RenderGameObject(testObj, camera);
 	//quadSphere->Render(camera);
 	renderer->PostRender();
 }
@@ -117,14 +119,14 @@ void Engine::SetupScene()
 
 	skybox = new Skybox();
 	
-	light = Light(glm::vec3(-4.0f,1.0f,4.0f), glm::vec3(1.0f,1.0f,0.0f), glm::vec3(1.0f), glm::vec3(1.0f));
+	light = Light(glm::vec3(-4.0f,1.0f,4.0f), glm::vec3(1.0f,1.0f,1.0f), glm::vec3(1.0f), glm::vec3(1.0f));
 	renderer->SetLight(light);
 
 	SimpleModel* cubeModel = new SimpleModel(PrimitiveType::Cube, 
 		ShaderManager::GetShader(Shader::Lit_Untextured), 
 		Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
-	TextureManager::LoadTexture("Crate", "wooden crate.jpg");
+	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::Diffuse);
 	//TextureManager::LoadTexture("Crate", "de.tga");
 	
 	SimpleModel* textureCubeModel = new SimpleModel(PrimitiveType::Cube,
@@ -141,15 +143,22 @@ void Engine::SetupScene()
 
 	SimpleModel* reflectCube = new SimpleModel(PrimitiveType::Cube,
 		ShaderManager::GetShader(Shader::Reflective),
-		NULL);
+		Material());
 
+	Model* testModel = new Model("Sphere Model/sphere.obj",
+		//Material(TextureManager::GetTexture("Crate")),
+		ShaderManager::GetShader(Shader::Lit_Textured));
+
+	Model* reflectSphere = new Model("Sphere Model/sphere.obj",
+		ShaderManager::GetShader(Shader::Reflective));
 	//QuadSphere* quadSphere = new QuadSphere(4, ShaderManager::GetShader(Lit_Untextured), Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
 	//////////
 	//quadSphere = new QuadSphere(4, nullptr, Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 	///////////////
-
-	testObj = new GameObject(reflectCube);
+	testObj = new GameObject(reflectSphere);
+	//testObj = new GameObject(testModel);
+	//testObj = new GameObject(reflectCube);
 	//testObj = new GameObject(textureCubeModel);
 	//testObj = new GameObject(cubeModel);
 	//sphere = new GameObject(quadSphere);

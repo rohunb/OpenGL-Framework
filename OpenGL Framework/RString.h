@@ -3,7 +3,7 @@
 #include <string>
 namespace rb
 {
-	using String = std::string;
+	using string = std::string;
 }
 
 #endif

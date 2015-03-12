@@ -2,44 +2,43 @@
 #define R_MATERIAL_H_
 #include <glew.h>
 #include "RVector.h"
+#include "Texture.h"
 namespace rb
 {
-	struct Material
+	class Material
 	{
+	public:
+		Material()
+			:Material(Vec3(1.0f))
+		{}
+		Material(const Vec3& diffuseColour)
+			:Material(Vec3(1.0f), Vec3(1.0f), 4.0f)
+		{}
+		Material(const Vec3& diffuseColour, const Vec3& specularColour, float shininess)
+			:Material(Texture(), diffuseColour, specularColour, shininess)
+		{}
+		Material(const Texture& diffuseTexture)
+			:Material(diffuseTexture, Vec3(1.0f), 4.0f)
+		{}
+		Material(const Texture& diffuseTexture, const Vec3& specularColour, float shininess)
+			:Material(diffuseTexture, Vec3(1.0f), specularColour, shininess)
+		{}
+
+		Vec3 Diffuse() const { return diffuse; }
+		Texture DiffuseTexture() const { return diffuseTexture; }
+		Vec3 Specular() const { return specular; }
+		float Shininess() const { return shininess; }
+
+	private:
 		Vec3 diffuse;
-		GLuint diffuseTextureID;
+		Texture diffuseTexture;
 		Vec3 specular;
 		float shininess;
-
-		Material()
-			:diffuse(Vec3(1.0f)),
-			diffuseTextureID(0),
-			specular(Vec3(1.0f)),
-			shininess(4.0f)
-		{}
-		Material(const Vec3& _diffuseColour)
-			:diffuse(_diffuseColour),
-			diffuseTextureID(0),
-			specular(Vec3(1.0f)),
-			shininess(4.0f)
-		{}
-		Material(const Vec3& _diffuseColour, const Vec3& _specularColour, float _shininess)
-			:diffuse(_diffuseColour),
-			diffuseTextureID(0),
+		Material(const Texture& _diffuseTexture, const Vec3& _diffuseColour, const Vec3& _specularColour, float _shininess)
+			:diffuseTexture(_diffuseTexture),
+			diffuse(_diffuseColour),
 			specular(_specularColour),
 			shininess(_shininess)
-		{}
-		Material(GLuint _diffuseTextureID, const Vec3& _specularColour, float _shininess)
-			:diffuse(Vec3(1.0f)),
-			diffuseTextureID(_diffuseTextureID),
-			specular(_specularColour),
-			shininess(_shininess)
-		{}
-		Material(GLuint _diffuseTextureID)
-			:diffuseTextureID(_diffuseTextureID),
-			diffuse(Vec3(1.0f)),
-			specular(Vec3(1.0f)),
-			shininess(4.0f)
 		{}
 	};
 }

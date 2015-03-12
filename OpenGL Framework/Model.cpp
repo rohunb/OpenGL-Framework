@@ -2,23 +2,47 @@
 #include <iostream>
 #include "Mesh.h"
 #include "Texture.h"
+#include "TextureManager.h"
+#include "Material.h"
+#include "ShaderManager.h"
+#include "Debug.h"
+#include "RString.h"
+#include "Assets.h"
+
 using namespace rb;
+
+void Model::Render() const
+{
+	for (Mesh mesh : meshes)
+	{
+		mesh.Render();
+	}
+
+}
 
 Model::Model()
 {
-
+	//Debug::Info("Model default ctor");
 }
-
-rb::Model::Model(String path)
+rb::Model::Model(const string& path, const Material& _material, Shader* _shader)
+	:material(_material),
+	shader(_shader)
 {
-
+	LoadModel(Assets::modelsPath+path, false);
 }
 
-rb::Model::Model(String path, Shader* shader)
+rb::Model::Model(const string& path, Shader* _shader)
+	:shader(_shader)
 {
-
+	//Debug::Info("Model:: loading mat from model");
+	LoadModel(Assets::modelsPath+path, true);
 }
-void rb::Model::LoadModel(const std::string& path)
+
+rb::Model::Model(const string& path)
+	: Model(path, ShaderManager::GetShader(Shader::Unlit_Untextured))
+{}
+
+void rb::Model::LoadModel(const string& path, bool useModelMaterial)
 {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -27,28 +51,29 @@ void rb::Model::LoadModel(const std::string& path)
 		std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
 		return;
 	}
-	String directory = path.substr(0, path.find_last_of('/'));
-	ProcessNode(scene->mRootNode, scene);
+	directory = path.substr(0, path.find_last_of('/'));
+	Debug::Info("Model Directory: " + directory);
+	ProcessNode(scene->mRootNode, scene, useModelMaterial);
 }
 
-void rb::Model::ProcessNode(aiNode* node, const aiScene* scene)
+void rb::Model::ProcessNode(aiNode* node, const aiScene* scene, bool useModelMaterial)
 {
 	for (GLuint i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(ProcessMesh(mesh, scene));
+		meshes.push_back(ProcessMesh(mesh, scene, useModelMaterial));
 	}
 	for (GLuint i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene);
+		ProcessNode(node->mChildren[i], scene, useModelMaterial);
 	}
 }
 
-class Mesh rb::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+class Mesh rb::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, bool useModelMaterial)
 {
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<Texture> textures;
+	//std::vector<Texture> textures;
 
 	for (GLuint i = 0; i < mesh->mNumVertices; i++)
 	{
@@ -69,11 +94,11 @@ class Mesh rb::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			Vec2 vec;
 			vec.x = mesh->mTextureCoords[0][i].x;
 			vec.y = mesh->mTextureCoords[0][i].y;
-			vertex.texCoord = vec;
+			vertex.uvCoord = vec;
 		}
 		else
 		{
-			vertex.texCoord = Vec2(0.0f, 0.0f);
+			vertex.uvCoord = Vec2(0.0f, 0.0f);
 		}
 		vertices.push_back(vertex);
 	}
@@ -85,15 +110,28 @@ class Mesh rb::Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			indices.push_back(face.mIndices[j]);
 		}
 	}
-}
+	if (useModelMaterial)
+	{
+		aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
+		this->material = LoadMaterialTexture(aiMat, aiTextureType_DIFFUSE);
+		//return Mesh(vertices, indices, this->material);
+	}
+	return Mesh(vertices, indices, this->material);
+}//ProcessMesh
 
+
+struct Texture rb::Model::LoadMaterialTexture(aiMaterial* aiMat, aiTextureType type)
+{
+	aiString name;
+	aiMat->GetTexture(type, 0, &name);
+	string texName = string(name.C_Str());
+	TextureManager::LoadTextureAbsPath(texName, directory + "/" + texName, Texture::Diffuse);
+	Debug::Info("Model Texture: " + texName + " ID: " + std::to_string((TextureManager::GetTexture(texName).texID)));
+	return TextureManager::GetTexture(texName);
+}
 
 Model::~Model()
 {
 }
 
 
-void Model::Render() const
-{
-	std::cout<<"Model render\n";
-}

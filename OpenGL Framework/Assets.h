@@ -1,13 +1,14 @@
 #ifndef ASSETS_H_
 #define ASSETS_H_
-#include <string>
+#include "RString.h"
 namespace rb
 {
 	struct Assets
 	{
-		static std::string texturesPath;
-		static std::string shadersPath;
-		static std::string skyboxesPath;
+		static string texturesPath;
+		static string modelsPath;
+		static string shadersPath;
+		static string skyboxesPath;
 	};
 }
 #endif // !ASSETS_H_

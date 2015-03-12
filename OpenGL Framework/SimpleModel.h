@@ -5,10 +5,10 @@
 #include "RVector.h"
 namespace rb
 {
+	enum PrimitiveType { Cube, Sphere, QuadSphere };
 	class SimpleModel : public Model
 	{
 	public:
-		enum PrimitiveType { Cube, Sphere, QuadSphere };
 		SimpleModel(PrimitiveType type, Shader* shader, Material material);
 		~SimpleModel();
 		void Render() const override;

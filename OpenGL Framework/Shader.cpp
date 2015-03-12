@@ -34,9 +34,9 @@ GLuint Shader::GetStdUniformLoc(StdUniform uniform)
 void Shader::HandleStdUniforms(const char* modelMatrixName, const char* viewMatrixName, const char* projMatrixName)
 {
 	std::vector<const char*> stdUniformNames = { modelMatrixName, viewMatrixName, projMatrixName };
-	int count;
+	/*int count;
 	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &count);
-	printf("\nThere are %d active Uniforms\n", count);
+	printf("\nThere are %d active Uniforms\n", count);*/
 	for (uint i = 0; i < stdUniformNames.size(); i++)
 	{
 		if (stdUniformNames[i] == NULL)
@@ -46,7 +46,7 @@ void Shader::HandleStdUniforms(const char* modelMatrixName, const char* viewMatr
 		stdUniformLoc[i] = glGetUniformLocation(program, stdUniformNames[i]);
 		if (stdUniformLoc[i] != -1)
 		{
-			printf("%s loc:%d\n", stdUniformNames[i], stdUniformLoc[i]);
+			//printf("%s loc:%d\n", stdUniformNames[i], stdUniformLoc[i]);
 		}
 		else
 		{

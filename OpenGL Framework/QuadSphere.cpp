@@ -4,6 +4,9 @@
 #include "Camera.h"
 #include <glm\gtc\type_ptr.hpp>
 #include <vector>
+#include "Material.h"
+#include "Shader.h"
+
 using namespace rb;
 QuadSphere::QuadSphere(int numSubDivisions, Shader* _shader, Material _material)
 {

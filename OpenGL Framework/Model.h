@@ -5,7 +5,7 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-#include "Shader.h"
+//#include "Shader.h"
 #include "Material.h"
 #include "RString.h"
 namespace rb
@@ -13,20 +13,22 @@ namespace rb
 	class Model
 	{
 	public:
-		Shader* shader;
+		class Shader* shader;
 		Material material;
-
 		Model();
-		Model(String path);
-		Model(String path, Shader* shader);
+		Model(const string& path);
+		Model(const string& path, class Shader* shader);
+		Model(const string& path, const Material& material, class Shader* shader);
 		virtual ~Model();
 		virtual void Render() const;
 
 	private:
+		string directory;
 		std::vector<class Mesh> meshes;
-		void LoadModel(const std::string& path);
-		void ProcessNode(aiNode* node, const aiScene* scene);
-		class Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+		void LoadModel(const std::string& path, bool useModelMaterial);
+		void ProcessNode(aiNode* node, const aiScene* scene, bool useModelMaterial);
+		class Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene, bool useModelMaterial);
+		struct Texture LoadMaterialTexture(aiMaterial* aiMat, aiTextureType type);
 
 	};
 }

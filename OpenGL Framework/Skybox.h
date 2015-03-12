@@ -12,14 +12,14 @@ namespace rb
 	public:
 		Skybox();
 		Skybox(std::string textureName);
-		Skybox(GLuint textureID);
+		Skybox(struct Texture texture);
 		~Skybox();
 		void Render(class Camera* camera) const;
-		inline GLuint TextureID() const { return textureID; }
+		struct rb::Texture GetTexture() const;
 		Shader* shader;
 	private:
 		GLuint VAO, VBO, EBO;
-		GLuint textureID;
+		struct Texture texture;
 		SimpleModel* skyboxModel;
 		void Init();
 	};
