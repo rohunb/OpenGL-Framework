@@ -1,7 +1,7 @@
 # Compiled Object files
 *.slo
 *.lo
-*.obj
+#*.obj
 #!OpenGL Framework/Assets/*.obj
 
 
@@ -75,4 +75,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-
+# Ignored Directories
+OpenGL\ Framework/Debug
