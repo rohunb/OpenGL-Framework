@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -16,108 +8,130 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{41afabe5-ccfa-46c0-9eac-c2e86739fced}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{7b9a6c68-f19f-4e00-92aa-e886a73dffd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourcesCode">
+      <UniqueIdentifier>{d32fa958-35b2-4672-a33a-525571ef5f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineCore">
+      <UniqueIdentifier>{42f74b55-07b6-4358-99c6-b8561bf17442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineComponents">
+      <UniqueIdentifier>{13a40e39-fa71-465c-81bc-82ad68d25c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{6f49d599-3e2f-4f93-a08c-f8638db5c3a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Assets.h">
+      <Filter>ResourcesCode</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
+      <Filter>ResourcesCode</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TestApp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Model.h">
+      <Filter>ResourcesCode</Filter>
     </ClInclude>
     <ClInclude Include="QuadSphere.h">
-      <Filter>Header Files</Filter>
+      <Filter>ResourcesCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>ResourcesCode</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>ResourcesCode</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleModel.h">
+      <Filter>ResourcesCode</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>ResourcesCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
-      <Filter>Header Files</Filter>
+      <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Assets.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Engine.h">
+      <Filter>EngineCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>EngineCore</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>EngineCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>EngineComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>ResourcesCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ResourcesCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Assets.cpp">
+      <Filter>ResourcesCode</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ResourcesCode</Filter>
     </ClCompile>
     <ClCompile Include="QuadSphere.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ResourcesCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>ResourcesCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>ResourcesCode</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleModel.cpp">
+      <Filter>ResourcesCode</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ResourcesCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Skybox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Assets.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Engine.cpp">
+      <Filter>EngineCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>EngineCore</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>EngineCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>EngineComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mesh.cpp">
+      <Filter>ResourcesCode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

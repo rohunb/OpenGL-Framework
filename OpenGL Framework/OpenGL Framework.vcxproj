@@ -44,12 +44,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Libraries\glm;Libraries\glfw\include;Libraries\glew\include;Libraries\soil\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Libraries\Assimp\include;Libraries\glm;Libraries\glfw\include;Libraries\glew\include;Libraries\soil\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Libraries\soil\lib;Libraries\glfw\lib;Libraries\glew\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Libraries\Assimp\lib;Libraries\soil\lib;Libraries\glfw\lib;Libraries\glew\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimpd.lib;glfw3.lib;opengl32.lib;glew32s.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -75,6 +75,8 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="QuadSphere.h" />
     <ClInclude Include="Renderer.h" />
@@ -82,8 +84,9 @@
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SimpleModel.h" />
     <ClInclude Include="Skybox.h" />
-    <ClInclude Include="TestApp.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assets.cpp" />
@@ -93,6 +96,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="QuadSphere.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -100,7 +104,6 @@
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="SimpleModel.cpp" />
     <ClCompile Include="Skybox.cpp" />
-    <ClCompile Include="TestApp.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
