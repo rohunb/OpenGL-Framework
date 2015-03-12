@@ -1,9 +1,8 @@
 # Compiled Object files
 *.slo
 *.lo
-*.o
 !OpenGL Framework/Assets
-*.obj
+!*.obj
 
 # Precompiled Headers
 *.gch
