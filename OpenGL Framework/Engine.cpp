@@ -65,7 +65,7 @@ void  Engine::Update(float dt)
 	{
 		glfwSetWindowShouldClose(renderer->Window(), GL_TRUE);
 	}
-	printf("Mouse delta: (%f, %f)\n", Input::MouseDelta().x, Input::MouseDelta().y);
+	//printf("Mouse delta: (%f, %f)\n", Input::MouseDelta().x, Input::MouseDelta().y);
 	camera->RotateCamera(Input::MouseDelta().x, glm::vec3(0.0f, -1.0f, 0.0f));
 	camera->RotateCamera(Input::MouseDelta().y, glm::vec3(1.0f, 0.0f, 0.0f));
 

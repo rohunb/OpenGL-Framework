@@ -44,11 +44,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(GLM_HOME);$(OPENGL)\include;$(SOIL_HOME)\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Libraries\glm;Libraries\glfw\include;Libraries\glew\include;Libraries\soil\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SOIL_HOME)\lib;$(OPENGL)\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Libraries\soil\lib;Libraries\glfw\lib;Libraries\glew\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

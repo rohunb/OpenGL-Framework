@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtc\type_ptr.hpp"
+#include "Assets.h"
+#include <iostream>
 
 Skybox::Skybox(std::string textureName)
 	:Skybox(TextureManager::GetTexture((textureName)))
@@ -110,7 +112,7 @@ void Skybox::Init()
 	shader = ShaderManager::GetShader(Shader::Skybox);
 	//shader->HandleStdUniforms()
 
-	std::vector<const GLchar*> faces{ "hexagon_rt.jpg", "hexagon_lf.jpg", "hexagon_up.jpg", "hexagon_dn.jpg", "hexagon_bk.jpg", "hexagon_ft.jpg" };
+	std::vector<std::string> faces{"hexagon_rt.jpg", "hexagon_lf.jpg", "hexagon_up.jpg", "hexagon_dn.jpg", "hexagon_bk.jpg", "hexagon_ft.jpg" };
 
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
@@ -120,7 +122,8 @@ void Skybox::Init()
 
 	for (GLuint i = 0; i < faces.size(); i++)
 	{
-		image = SOIL_load_image(faces[i], &width, &height, 0, SOIL_LOAD_RGB);
+		std::string path = Assets::skyboxesPath + "FierySky/" + faces[i];
+		image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
 			0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	}
