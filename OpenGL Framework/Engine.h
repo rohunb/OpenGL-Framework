@@ -23,8 +23,8 @@ namespace rb
 		void RegisterUpdateCallback(UpdateMethod updateMethod, class Game* object);
 		UpdateMethod updateMethod;*/
 	private:
-		const int windowWidth = 1024;
-		const int windowHeight = 768;
+		const int windowWidth = 1440;
+		const int windowHeight = 1000;
 		const float dt = 0.16f;
 		double lastTime = 0.0f;
 		class Game* game;

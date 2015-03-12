@@ -17,6 +17,11 @@ Mat4 rb::RMatrix::Translate(const Vec3& translate)
 	return glm::translate(Mat4(1.0f), translate);
 }
 
+Mat4 rb::RMatrix::Rotate(float angle, const Vec3& axis)
+{
+	return glm::rotate(Mat4(1.0f), angle, axis);
+}
+
 Mat4 rb::RMatrix::Scale(const Vec3& scale)
 {
 	return glm::scale(Mat4(1.0f), scale);

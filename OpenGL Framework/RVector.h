@@ -11,6 +11,7 @@ namespace rb
 	class RVector
 	{
 	public:
+		static Vec3 up, down, left, right, forward, back;
 		static float Magnitude(const Vec3& vector);
 	};
 }
