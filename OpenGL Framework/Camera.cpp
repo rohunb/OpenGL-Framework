@@ -1,19 +1,17 @@
 #include "Camera.h"
-#include "glm\gtc\matrix_transform.hpp"
-#include "glm\gtx\rotate_vector.hpp"
-#include "glm\gtx\norm.hpp"
-
-
-Camera::Camera(const glm::vec3& _position /*= glm::vec3(0.0f)*/)
+#include "RMatrix.h"
+#include "RMath.h"
+using namespace rb;
+Camera::Camera(const Vec3& _position /*= Vec3(0.0f)*/)
 	: position(_position),
-	worldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
-	orientation(glm::mat4(1.0f)),
+	worldUp(Vec3(0.0f, 1.0f, 0.0f)),
+	orientation(Mat4(1.0f)),
 	fovY(53.13f), aspectRatio(1.0f), nearClipDistance(0.1f), farClipDistance(1000.0f)
 {
 	Init();
 }
 
-Camera::Camera(const glm::vec3& _position, const glm::vec3& up, const glm::mat4& _orientation)
+Camera::Camera(const Vec3& _position, const Vec3& up, const Mat4& _orientation)
 	: position(_position),
 	worldUp(up),
 	orientation(_orientation),
@@ -23,9 +21,9 @@ Camera::Camera(const glm::vec3& _position, const glm::vec3& up, const glm::mat4&
 }
 
 Camera::Camera(float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance)
-	: position(glm::vec3(0.0f)),
-	worldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
-	orientation(glm::mat4(1.0f)),
+	: position(Vec3(0.0f)),
+	worldUp(Vec3(0.0f, 1.0f, 0.0f)),
+	orientation(Mat4(1.0f)),
 	fovY(_fovY),
 	aspectRatio(_aspectRatio),
 	nearClipDistance(_nearClipDistance),
@@ -34,7 +32,7 @@ Camera::Camera(float _fovY, float _aspectRatio, float _nearClipDistance, float _
 	Init();
 }
 
-Camera::Camera(const glm::vec3& _position, const glm::vec3& _up, const glm::mat4& _orientation, 
+Camera::Camera(const Vec3& _position, const Vec3& _up, const Mat4& _orientation, 
 	float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance)
 
 	:position(_position),
@@ -52,49 +50,49 @@ Camera::~Camera()
 
 }
 
-glm::vec3 Camera::Up() const
+Vec3 Camera::Up() const
 {
 	return up;
 }
 
-glm::vec3 Camera::LookPoint() const
+Vec3 Camera::LookPoint() const
 {
 	return position + forward;
 }
 
-glm::mat4 Camera::View() const
+Mat4 Camera::View() const
 {
-	return glm::lookAt(position, position + forward, up);
+	return RMatrix::LookAt(position, position + forward, up);
 }
 
-glm::mat4 Camera::Projection() const
+Mat4 Camera::Projection() const
 {
 	return projectionMatrix;
 }
 
 void Camera::SetProjection(float fovY, float aspectRatio, float nearClipDistance, float farClipDistance)
 {
-	projectionMatrix = glm::perspective(fovY, aspectRatio, nearClipDistance, farClipDistance);
+	projectionMatrix = RMatrix::Perspective(fovY, aspectRatio, nearClipDistance, farClipDistance);
 }
 
-void Camera::MoveCamera(glm::vec3& direction)
+void Camera::MoveCamera(Vec3& direction)
 {
-	float dirMag = glm::length(direction);
+	float dirMag = RVector::Magnitude(direction);
 	if (dirMag < 0.01f)
 	{
 		return;
 	}
 	direction /= dirMag;
-	float angle = glm::acos(glm::dot(direction, glm::vec3(0.0f, 0.0f, -1.0f)));
+	float angle = glm::acos(glm::dot(direction, Vec3(0.0f, 0.0f, -1.0f)));
 	if (direction.x > 0.0f)
 	{
 		angle *= -1.0f;
 	}
-	glm::vec3 moveDir = glm::rotateY(forward, glm::degrees(angle));
+	Vec3 moveDir = RMath::RotateY(forward, glm::degrees(angle));
 	position += moveDir * dirMag;
 }
 
-void Camera::RotateCamera(float angle, const glm::vec3& axis)
+void Camera::RotateCamera(float angle, const Vec3& axis)
 {
 	orientation = glm::rotate(orientation, angle, axis);
 	Recalculate();
@@ -102,7 +100,7 @@ void Camera::RotateCamera(float angle, const glm::vec3& axis)
 
 void Camera::Recalculate()
 {
-	forward = glm::vec3(orientation * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));
+	forward = Vec3(orientation * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));
 	right = glm::normalize(glm::cross(forward, worldUp));
 	up = glm::normalize(glm::cross(right, forward));
 }

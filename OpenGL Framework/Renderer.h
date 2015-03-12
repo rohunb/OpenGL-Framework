@@ -1,4 +1,6 @@
-#pragma once
+#ifndef R_RENDERER_H_
+#define R_RENDERER_H_
+
 #define GLEW_STATIC
 #include <glew.h>
 #include "glfw3.h"
@@ -6,23 +8,27 @@
 #include "GameObject.h"
 #include "Light.h"
 
-
-class Renderer
+namespace rb
 {
-public:
-	
-	GLFWwindow* Window() const { return window; }
-	Renderer(int windowWidth, int windowHeight, int windowPosX, int windowPosY, char* windowName);
-	~Renderer();
+	class Renderer
+	{
+	public:
 
-	void PreRender() const;
-	void PostRender() const;
-	void RenderGameObject(const GameObject* gameObject, const Camera* camera) const;
-	void SetLight(Light light);
+		GLFWwindow* Window() const { return window; }
+		Renderer(int windowWidth, int windowHeight, int windowPosX, int windowPosY, char* windowName);
+		~Renderer();
 
-private:
-	GLFWwindow* window;
-	Light light;
-	
-};
+		void PreRender() const;
+		void PostRender() const;
+		void RenderGameObject(const GameObject* gameObject, const Camera* camera) const;
+		void SetLight(Light light);
+
+	private:
+		GLFWwindow* window;
+		Light light;
+
+	};
+}
+#endif // !R_RENDERER_H_
+
 

@@ -1,27 +1,30 @@
-#pragma once
+#ifndef R_INPUT_H_
+#define R_INPUT_H_
+
 #include <glfw3.h>
-#include <glm/glm.hpp>
 #include <functional>
-
-class Input
+#include "RVector.h"
+namespace rb
 {
-public:
-	Input(GLFWwindow* window);
-	~Input();
+	class Input
+	{
+	public:
+		Input(GLFWwindow* window);
+		~Input();
+		static void Update();
+		static bool GetKeyDown(int key);
+		static Vec2 MouseDelta();
+		static Vec2 MousePosition();
 
-	static void Update();
-	static bool GetKeyDown(int key);
-	static glm::vec2 MouseDelta();
-	static glm::vec2 MousePosition();
+	private:
 
-private:
-	
-	static bool* keyStates;
-	static bool mouseActive;
-	static float sensitivity;
-	static glm::vec2 lastMousePos, currentMousePos, mouseDelta;
+		static bool* keyStates;
+		static bool mouseActive;
+		static float sensitivity;
+		static Vec2 lastMousePos, currentMousePos, mouseDelta;
 
-	static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
-	static void MouseCallback(GLFWwindow* window, double xPos, double yPos);
-};
-
+		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
+		static void MouseCallback(GLFWwindow* window, double xPos, double yPos);
+	};
+}
+#endif // !R_INPUT_H_

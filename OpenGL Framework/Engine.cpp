@@ -3,7 +3,7 @@
 #include "QuadSphere.h"
 #include "ShaderManager.h"
 #include "Game.h"
-#include <glm\gtc\type_ptr.hpp>
+#include "RMatrix.h"
 
 Engine::Engine()
 {
@@ -94,9 +94,9 @@ void Engine::Render()
 	Model* model = testObj->GetModel();
 	Shader* shader = model->shader;
 	shader->Use();
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, glm::value_ptr(testObj->GetTransform()));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, glm::value_ptr(camera->View()));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, glm::value_ptr(camera->Projection()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	glUniform3f(glGetUniformLocation(shader->Program(), "uViewPos"), camera->Position().x, camera->Position().y, camera->Position().z);
 	glUniform1i(glGetUniformLocation(shader->Program(), "uCubeMap"), 0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->TextureID());

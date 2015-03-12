@@ -1,20 +1,24 @@
-#pragma once
+#ifndef R_SHADER_MANAGER_H_
+#define R_SHADER_MANAGER_H_
+
 #include <map>
 #include <glew.h>
 #include <string>
 #include "Shader.h"
 
-typedef std::map<Shader::ShaderType, Shader*> ShaderTable;
-
-class ShaderManager
+namespace rb
 {
-public:
-	static void LoadShader(const std::string& vertFileName, const std::string& fragFileName, Shader::ShaderType type);
-	static Shader* GetShader(Shader::ShaderType type);
-	static void Clear();
+	using ShaderTable = std::map < Shader::ShaderType, Shader* > ;
+	class ShaderManager
+	{
+	public:
+		static void LoadShader(const std::string& vertFileName, const std::string& fragFileName, Shader::ShaderType type);
+		static Shader* GetShader(Shader::ShaderType type);
+		static void Clear();
+	private:
+		static ShaderTable shaderTable;
+	};
+}
+#endif // !R_SHADER_MANAGER_H_
 
-private:
-	static ShaderTable shaderTable;
-
-};
 

@@ -1,11 +1,12 @@
 #include "Input.h"
+using namespace rb;
 
 bool* Input::keyStates = new bool[1024];
 bool Input::mouseActive = false;
 float Input::sensitivity=0.5f;
-glm::vec2 Input::lastMousePos = glm::vec2(0.0f);
-glm::vec2 Input::currentMousePos = glm::vec2(0.0f);
-glm::vec2 Input::mouseDelta = glm::vec2(0.0f);
+Vec2 Input::lastMousePos = Vec2(0.0f);
+Vec2 Input::currentMousePos = Vec2(0.0f);
+Vec2 Input::mouseDelta = Vec2(0.0f);
 
 Input::Input(GLFWwindow* window)
 {
@@ -34,11 +35,11 @@ bool Input::GetKeyDown(int key)
 	return keyStates[key];
 }
 
-glm::vec2 Input::MouseDelta()
+Vec2 Input::MouseDelta()
 {
 	return mouseDelta;
 }
-glm::vec2 Input::MousePosition()
+Vec2 Input::MousePosition()
 {
 	return lastMousePos;
 }
@@ -59,14 +60,14 @@ void Input::MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	if (!mouseActive)
 	{
-		lastMousePos.x = xPos;
-		lastMousePos.y = yPos;
+		lastMousePos.x = (float)xPos;
+		lastMousePos.y = (float)yPos;
 		mouseActive = true;
 	}
-	mouseDelta.x = xPos - lastMousePos.x;
-	mouseDelta.y = lastMousePos.y - yPos;
+	mouseDelta.x = (float)xPos - lastMousePos.x;
+	mouseDelta.y = lastMousePos.y - (float)yPos;
 	mouseDelta.x *= sensitivity;
 	mouseDelta.y *= sensitivity;
-	lastMousePos.x = xPos;
-	lastMousePos.y = yPos;
+	lastMousePos.x = (float)xPos;
+	lastMousePos.y = (float)yPos;
 }

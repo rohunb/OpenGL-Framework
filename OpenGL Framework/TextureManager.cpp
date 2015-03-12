@@ -3,6 +3,7 @@
 #include <SOIL.h>
 #include "Assets.h"
 
+using namespace rb;
 TextureTable TextureManager::textureTable;
 
 void TextureManager::LoadTexture(const std::string& name, const std::string& path)

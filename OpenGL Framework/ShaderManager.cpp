@@ -1,7 +1,7 @@
 #include "ShaderManager.h"
 #include <iostream>
 #include "Assets.h"
-
+using namespace rb;
 ShaderTable ShaderManager::shaderTable;
 
 void ShaderManager::LoadShader(const std::string& vertFileName, const std::string& fragFileName, Shader::ShaderType type)

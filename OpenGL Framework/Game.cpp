@@ -1,5 +1,5 @@
 #include "Game.h"
-
+using namespace rb;
 Game::Game()
 {
 	engine = new Engine();

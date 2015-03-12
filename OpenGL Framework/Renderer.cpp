@@ -1,8 +1,8 @@
 #include "Renderer.h"
-#include "glfw3.h"
-#include "glm\gtc\type_ptr.hpp"
+#include <glfw3.h>
 #include <iostream>
-
+#include "RMatrix.h"
+using namespace rb;
 Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int windowPosY, char* windowName)
 {
 	glfwInit();
@@ -10,7 +10,7 @@ Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int window
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	window = glfwCreateWindow(windowWidth, windowHeight, "GLFW Test", nullptr, nullptr);
+	window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Framework", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -54,10 +54,10 @@ void Renderer::RenderGameObject(const GameObject* gameObject, const Camera* came
 	Model* model = gameObject->GetModel();
 	Shader* shader = model->shader;
 	shader->Use();
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, glm::value_ptr(gameObject->GetTransform()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(gameObject->GetTransform()));
 	//glUniformMatrix4fv(shader->GetStdUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, glm::value_ptr(camera->View()));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, glm::value_ptr(camera->Projection()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	
 	glUniform3f(glGetUniformLocation(shader->Program(), "uViewPos"), camera->Position().x, camera->Position().y, camera->Position().z);
 

@@ -4,6 +4,7 @@
 //#include "TestApp.h"
 //Engine* engine;
 //TestApp* testApp;
+using namespace rb;
 Game* game;
 //void Render();
 void Update(float dt);

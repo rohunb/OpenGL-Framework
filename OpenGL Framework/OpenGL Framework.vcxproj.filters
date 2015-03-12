@@ -79,10 +79,16 @@
     <ClInclude Include="Texture.h">
       <Filter>ResourcesCode</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="RString.h">
       <Filter>Includes</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
+    <ClInclude Include="RMatrix.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="RVector.h">
+      <Filter>Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="RMath.h">
       <Filter>Includes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -132,6 +138,15 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp">
       <Filter>ResourcesCode</Filter>
+    </ClCompile>
+    <ClCompile Include="RMath.cpp">
+      <Filter>Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="RMatrix.cpp">
+      <Filter>Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="RVector.cpp">
+      <Filter>Includes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

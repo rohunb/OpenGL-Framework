@@ -2,13 +2,15 @@
 #include "TextureManager.h"
 #include <vector>
 #include <SOIL.h>
-#include "ShaderManager.h"
-#include "Camera.h"
-#include "glm\gtc\matrix_transform.hpp"
-#include "glm\gtc\type_ptr.hpp"
-#include "Assets.h"
 #include <iostream>
 
+#include "ShaderManager.h"
+#include "Camera.h"
+// #include "glm\gtc\matrix_transform.hpp"
+// #include "glm\gtc\type_ptr.hpp"
+#include "Assets.h"
+#include "RMatrix.h"
+using namespace rb;
 Skybox::Skybox(std::string textureName)
 	:Skybox(TextureManager::GetTexture((textureName)))
 {}
@@ -37,9 +39,9 @@ void Skybox::Render(Camera* camera) const
 	shader->Use();
 	glBindVertexArray(VAO);
 	//glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, glm::value_ptr(glm::lookAt(glm::vec3(0.0f), camera->LookPoint(), camera->Up())));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::translate(glm::mat4(1.0f), camera->Position())));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, glm::value_ptr(camera->View()));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, glm::value_ptr(camera->Projection()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(RMatrix::Translate(camera->Position())));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	glUniform1i(glGetUniformLocation(shader->Program(), "uCubeMap"), 0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 	glDrawArrays(GL_TRIANGLES, 0, 36);

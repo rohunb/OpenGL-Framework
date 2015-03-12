@@ -1,34 +1,41 @@
-#pragma once
-#include <glm\glm.hpp>
+#ifndef R_CAMERA_H_
+#define R_CAMERA_H_
 
-class Camera
+#include "RVector.h"
+#include "RMatrix.h"
+
+namespace rb
 {
-public:
-	Camera(const glm::vec3& _position = glm::vec3(0.0f));
-	Camera(const glm::vec3& _position, const glm::vec3& up, const glm::mat4& _orientation);
-	Camera(float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance);
-	Camera(const glm::vec3& _position, const glm::vec3& _up, const glm::mat4& _orientation,
-		float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance);
+	class Camera
+	{
+	public:
 
-	~Camera();
+		Camera(const Vec3& _position = Vec3(0.0f));
+		Camera(const Vec3& _position, const Vec3& up, const Mat4& _orientation);
+		Camera(float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance);
+		Camera(const Vec3& _position, const Vec3& _up, const Mat4& _orientation,
+			float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance);
 
-	inline glm::vec3 Position() const {return position;}
-	glm::vec3 Up() const;
-	glm::vec3 LookPoint() const;
-	glm::mat4 View() const;
-	glm::mat4 Projection() const;
-	void SetProjection(float fovY, float aspectRatio, float nearClipDistance, float farClipDistance);
-	void MoveCamera(glm::vec3& direction);
-	void RotateCamera(float angle, const glm::vec3& axis);
+		~Camera();
+
+		inline Vec3 Position() const { return position; }
+		Vec3 Up() const;
+		Vec3 LookPoint() const;
+		Mat4 View() const;
+		Mat4 Projection() const;
+		void SetProjection(float fovY, float aspectRatio, float nearClipDistance, float farClipDistance);
+		void MoveCamera(Vec3& direction);
+		void RotateCamera(float angle, const Vec3& axis);
 
 
-private:
-	glm::vec3 position, forward, up, right, worldUp;
-	glm::mat4 orientation;
-	float fovY, aspectRatio, nearClipDistance, farClipDistance;
-	glm::mat4 viewMatrix, projectionMatrix;
+	private:
+		Vec3 position, forward, up, right, worldUp;
+		Mat4 orientation;
+		float fovY, aspectRatio, nearClipDistance, farClipDistance;
+		Mat4 viewMatrix, projectionMatrix;
 
-	void Init();
-	void Recalculate();
-};
-
+		void Init();
+		void Recalculate();
+	};
+}
+#endif // !R_CAMERA_H_

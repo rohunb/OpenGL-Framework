@@ -2,8 +2,8 @@
 #include <vector>
 #include <fstream>
 
-typedef unsigned int uint;
-
+using uint = unsigned int;
+using namespace rb;
 Shader::Shader(const char* vertFileName, const char* fragFileName, ShaderType _type)
 	:type(_type)
 {

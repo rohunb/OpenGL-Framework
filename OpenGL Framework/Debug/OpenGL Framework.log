@@ -1,39 +1,80 @@
-﻿Build started 3/11/2015 10:58:04 PM.
-     1>Project "E:\GitHub\OpenGL Framework\OpenGL Framework\OpenGL Framework.vcxproj" on node 2 (Build target(s)).
+﻿Build started 3/12/2015 11:52:33 AM.
+     1>Project "D:\Github\OpenGL-Framework\OpenGL Framework\OpenGL Framework.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\glfw\include /ILibraries\glew\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Engine.cpp Game.cpp GameObject.cpp Main.cpp Model.cpp QuadSphere.cpp Renderer.cpp SimpleModel.cpp Skybox.cpp
-         Engine.cpp
-         Generating Code...
-         Compiling...
-         Skybox.cpp
-         SimpleModel.cpp
-         Renderer.cpp
-         QuadSphere.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\glfw\include /ILibraries\glew\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Assets.cpp Engine.cpp GameObject.cpp Model.cpp
          Model.cpp
-         Main.cpp
          GameObject.cpp
-         Game.cpp
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(4): error C2653: 'GameObject' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(4): error C2065: 'Model' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(4): error C2065: '_model' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(5): error C2448: 'GameObject' : function-style initializer appears to be a function definition
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(5): error C2143: syntax error : missing ';' before ':'
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(5): error C2065: '_model' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(6): error C3861: 'Vec3': identifier not found
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(6): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(7): error C3861: 'Mat4': identifier not found
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(7): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(8): error C3861: 'Vec3': identifier not found
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(9): error C2448: 'scale' : function-style initializer appears to be a function definition
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(13): error C2653: 'GameObject' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(13): error C2065: 'Model' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(13): error C2065: '_model' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(13): error C2059: syntax error : 'const'
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(15): error C2065: '_model' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(15): error C2374: 'model' : redefinition; multiple initialization
+                 d:\github\opengl-framework\opengl framework\gameobject.cpp(5) : see declaration of 'model'
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(16): error C2065: '_position' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(16): error C2374: 'position' : redefinition; multiple initialization
+                 d:\github\opengl-framework\opengl framework\gameobject.cpp(6) : see declaration of 'position'
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(17): error C2065: '_rotation' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(17): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(17): error C2374: 'rotation' : redefinition; multiple initialization
+                 d:\github\opengl-framework\opengl framework\gameobject.cpp(7) : see declaration of 'rotation'
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(18): error C2065: '_scale' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(19): error C2448: 'scale' : function-style initializer appears to be a function definition
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(22): error C2653: 'GameObject' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\gameobject.cpp(22): fatal error C1903: unable to recover from previous error(s); stopping compilation
+         Engine.cpp
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(8): error C2653: 'Engine' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(10): error C2065: 'renderer' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(10): error C2061: syntax error : identifier 'Renderer'
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(11): error C2065: 'input' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(11): error C2061: syntax error : identifier 'Input'
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(13): error C2653: 'ShaderManager' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(13): error C2653: 'Shader' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(13): error C2065: 'Unlit_Untextured' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(13): error C3861: 'LoadShader': identifier not found
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(14): error C2653: 'ShaderManager' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(14): error C2653: 'Shader' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(14): error C2065: 'Lit_Untextured' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(14): error C3861: 'LoadShader': identifier not found
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(15): error C2653: 'ShaderManager' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(15): error C2653: 'Shader' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(15): error C2065: 'Lit_Textured' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(15): error C3861: 'LoadShader': identifier not found
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(16): error C2653: 'ShaderManager' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(16): error C2653: 'Shader' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(16): error C2065: 'Skybox' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(16): error C3861: 'LoadShader': identifier not found
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(17): error C2653: 'ShaderManager' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(17): error C2653: 'Shader' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(17): error C2065: 'Reflective' : undeclared identifier
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(17): error C3861: 'LoadShader': identifier not found
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(19): error C3861: 'SetupScene': identifier not found
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(20): warning C4508: 'Engine' : function should return a value; 'void' return type assumed
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(23): error C2653: 'Engine' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\engine.cpp(23): fatal error C1903: unable to recover from previous error(s); stopping compilation
+         Assets.cpp
+     1>d:\github\opengl-framework\opengl framework\assets.cpp(2): error C2653: 'Assets' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\assets.cpp(3): error C2653: 'Assets' : is not a class or namespace name
+     1>d:\github\opengl-framework\opengl framework\assets.cpp(4): error C2653: 'Assets' : is not a class or namespace name
          Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.exe" /INCREMENTAL /NOLOGO /LIBPATH:Libraries\Assimp\lib /LIBPATH:Libraries\soil\lib /LIBPATH:Libraries\glfw\lib /LIBPATH:Libraries\glew\lib assimpd.lib glfw3.lib opengl32.lib glew32s.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.lib" /MACHINE:X86 Debug\Assets.obj
-         Debug\Camera.obj
-         Debug\Engine.obj
-         Debug\Game.obj
-         Debug\GameObject.obj
-         Debug\Input.obj
-         Debug\Main.obj
-         Debug\Mesh.obj
-         Debug\Model.obj
-         Debug\QuadSphere.obj
-         Debug\Renderer.obj
-         Debug\Shader.obj
-         Debug\ShaderManager.obj
-         Debug\SimpleModel.obj
-         Debug\Skybox.obj
-         Debug\TextureManager.obj
-         OpenGL Framework.vcxproj -> E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.exe
-     1>Done Building Project "E:\GitHub\OpenGL Framework\OpenGL Framework\OpenGL Framework.vcxproj" (Build target(s)).
+     1>Done Building Project "D:\Github\OpenGL-Framework\OpenGL Framework\OpenGL Framework.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:05.90
+Time Elapsed 00:00:01.88

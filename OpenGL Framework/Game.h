@@ -1,16 +1,18 @@
-#pragma once
-//#include <stdio.h>
+#ifndef R_GAME_H_
+#define R_GAME_H_
+
 #include "Engine.h"
-
-class Game
+namespace rb
 {
-public:
-	Game();
-	virtual ~Game();
+	class Game
+	{
+	public:
+		Engine* engine;
 
-	Engine* engine;
-
-	virtual void Update(float dt);
-	//virtual void CreateNewGame(Game* game);
-};
-
+		Game();
+		virtual ~Game();
+		virtual void Update(float dt);
+		//virtual void CreateNewGame(Game* game);
+	};
+}
+#endif // !R_GAME_H_

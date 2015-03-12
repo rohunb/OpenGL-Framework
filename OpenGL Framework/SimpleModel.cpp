@@ -1,7 +1,7 @@
 #include "SimpleModel.h"
 #include <stdio.h>
 #include <glm\gtc\constants.hpp>
-
+using namespace rb;
 SimpleModel::SimpleModel(PrimitiveType _type, Shader* _shader, Material _material)
 	:type(_type)
 {
@@ -56,21 +56,21 @@ void SimpleModel::SetupQuadSphere()
 	int numSubDivisions = 4;
 	numVertices = 6 * int(::pow(4.0, numSubDivisions + 1));
 	index = 0;
-	vertex = new glm::vec3[numVertices];
-	Qnormals = new glm::vec3[numVertices];
+	vertex = new Vec3[numVertices];
+	Qnormals = new Vec3[numVertices];
 	QtexCoords = new glm::vec2[numVertices];
 
-	glm::vec3 cube[8] = {
+	Vec3 cube[8] = {
 		///Front 4
-		glm::vec3(-0.5, -0.5, 0.5),/// Left bottom
-		glm::vec3(-0.5, 0.5, 0.5),/// Left top
-		glm::vec3(0.5, 0.5, 0.5),/// Right top
-		glm::vec3(0.5, -0.5, 0.5),/// Right bottom
+		Vec3(-0.5, -0.5, 0.5),/// Left bottom
+		Vec3(-0.5, 0.5, 0.5),/// Left top
+		Vec3(0.5, 0.5, 0.5),/// Right top
+		Vec3(0.5, -0.5, 0.5),/// Right bottom
 		///Back 4
-		glm::vec3(-0.5, -0.5, -0.5),
-		glm::vec3(-0.5, 0.5, -0.5),
-		glm::vec3(0.5, 0.5, -0.5),
-		glm::vec3(0.5, -0.5, -0.5)
+		Vec3(-0.5, -0.5, -0.5),
+		Vec3(-0.5, 0.5, -0.5),
+		Vec3(0.5, 0.5, -0.5),
+		Vec3(0.5, -0.5, -0.5)
 	};
 
 	int count = numSubDivisions;
@@ -93,10 +93,10 @@ void SimpleModel::SetupQuadSphere()
 	
 	for (int i = 0; i < numVertices; i += 4)
 	{
-		glm::vec3 one = vertex[i];
-		glm::vec3 two = vertex[i + 1];
-		glm::vec3 three = vertex[i + 2];
-		glm::vec3 four = vertex[i + 3];
+		Vec3 one = vertex[i];
+		Vec3 two = vertex[i + 1];
+		Vec3 three = vertex[i + 2];
+		Vec3 four = vertex[i + 3];
 
 		Qvertices.push_back(one);
 		Qvertices.push_back(two);
@@ -107,12 +107,12 @@ void SimpleModel::SetupQuadSphere()
 		Qvertices.push_back(four);
 	}
 
-	//#define VERTEX_LENGTH 	( * (sizeof(glm::vec3)))
-	//#define NORMAL_LENGTH 	(numVertices * (sizeof(glm::vec3)))
+	//#define VERTEX_LENGTH 	( * (sizeof(Vec3)))
+	//#define NORMAL_LENGTH 	(numVertices * (sizeof(Vec3)))
 	//#define TEXCOORD_LENGTH (numVertices * (sizeof(glm::vec2)))
 
-	const GLsizeiptr vertexLength = Qvertices.size()*sizeof(glm::vec3);
-	const GLsizeiptr normalLength = numVertices * sizeof(glm::vec3);
+	const GLsizeiptr vertexLength = Qvertices.size()*sizeof(Vec3);
+	const GLsizeiptr normalLength = numVertices * sizeof(Vec3);
 	const GLsizeiptr texCoordLength = numVertices * sizeof(glm::vec2);
 
 	numVertices = Qvertices.size();
@@ -295,11 +295,11 @@ void SimpleModel::SetupSphere()
 	glBindVertexArray(0);
 }
 
-void SimpleModel::LoadFace(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const glm::vec3& d)
+void SimpleModel::LoadFace(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d)
 {
-	glm::vec3 u = b - a;
-	glm::vec3 v = c - b;
-	glm::vec3 normal = glm::normalize((glm::cross(u, v)));
+	Vec3 u = b - a;
+	Vec3 v = c - b;
+	Vec3 normal = glm::normalize((glm::cross(u, v)));
 	//printf("u: %f %f %f v: %f %f %f\n", u.x,u.y, u.z, v.x, v.y, v.z);
 	//printf("normal: %f %f %f\n", normal.x, normal.y, normal.z);
 	Qnormals[index] = normal;
@@ -324,14 +324,14 @@ void SimpleModel::LoadFace(const glm::vec3& a, const glm::vec3& b, const glm::ve
 	index++;
 }
 
-void SimpleModel::DivideFace(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const glm::vec3& d, int count)
+void SimpleModel::DivideFace(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d, int count)
 {
 	if (count > 0){
-		glm::vec3 v1 = glm::normalize(a + b);
-		glm::vec3 v2 = glm::normalize(b + c);
-		glm::vec3 v3 = glm::normalize(c + d);
-		glm::vec3 v4 = glm::normalize(d + a);
-		glm::vec3 vc = glm::normalize(a + c);
+		Vec3 v1 = glm::normalize(a + b);
+		Vec3 v2 = glm::normalize(b + c);
+		Vec3 v3 = glm::normalize(c + d);
+		Vec3 v4 = glm::normalize(d + a);
+		Vec3 vc = glm::normalize(a + c);
 		DivideFace(a, v1, vc, v4, count - 1);
 		DivideFace(v1, b, v2, vc, count - 1);
 		DivideFace(vc, v2, c, v3, count - 1);
@@ -351,8 +351,8 @@ void SimpleModel::SphericalNormals()
 
 
 
-//#define VERTEX_LENGTH vertices.size() * sizeof(glm::vec3)
-//#define NORMAL_LENGTH normals.size() * sizeof(glm::vec3)
+//#define VERTEX_LENGTH vertices.size() * sizeof(Vec3)
+//#define NORMAL_LENGTH normals.size() * sizeof(Vec3)
 //#define INDICES_LENGTH indices.size() * sizeof(GLuint)
 //
 //	glGenVertexArrays(1, &VAO);
@@ -387,21 +387,21 @@ void SimpleModel::SphericalNormals()
 //	int numSubDivisions = 4;
 //	numVertices = 6 * int(pow(4.0f, numSubDivisions + 1));
 //	index = 0;
-//	vertices = new glm::vec3[numVertices];
-//	normals = new glm::vec3[numVertices];
+//	vertices = new Vec3[numVertices];
+//	normals = new Vec3[numVertices];
 //	texCoords = new glm::vec2[numVertices];
-//	glm::vec3 cube[8] =
+//	Vec3 cube[8] =
 //	{
 //		///Front 4
-//		glm::vec3(-0.5, -0.5, 0.5),/// Left bottom
-//		glm::vec3(-0.5, 0.5, 0.5),/// Left top
-//		glm::vec3(0.5, 0.5, 0.5),/// Right top
-//		glm::vec3(0.5, -0.5, 0.5),/// Right bottom
+//		Vec3(-0.5, -0.5, 0.5),/// Left bottom
+//		Vec3(-0.5, 0.5, 0.5),/// Left top
+//		Vec3(0.5, 0.5, 0.5),/// Right top
+//		Vec3(0.5, -0.5, 0.5),/// Right bottom
 //		///Back 4
-//		glm::vec3(-0.5, -0.5, -0.5),
-//		glm::vec3(-0.5, 0.5, -0.5),
-//		glm::vec3(0.5, 0.5, -0.5),
-//		glm::vec3(0.5, -0.5, -0.5)
+//		Vec3(-0.5, -0.5, -0.5),
+//		Vec3(-0.5, 0.5, -0.5),
+//		Vec3(0.5, 0.5, -0.5),
+//		Vec3(0.5, -0.5, -0.5)
 //	};
 //	int count = numSubDivisions;
 //	if (count > 0){
@@ -418,8 +418,8 @@ void SimpleModel::SphericalNormals()
 //
 //	SphericalNormals();
 //	printf("%d vs %d\n", index, numVertices);
-//#define VERTEX_LENGTH 	(numVertices * (sizeof(glm::vec3)))
-//#define NORMAL_LENGTH 	(numVertices * (sizeof(glm::vec3)))
+//#define VERTEX_LENGTH 	(numVertices * (sizeof(Vec3)))
+//#define NORMAL_LENGTH 	(numVertices * (sizeof(Vec3)))
 //#define TEXCOORD_LENGTH (numVertices * (sizeof(glm::vec2)))
 //
 //	glGenVertexArrays(1, &VAO);
@@ -447,11 +447,11 @@ void SimpleModel::SphericalNormals()
 //}
 
 //
-//void SimpleModel::LoadFace(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const glm::vec3& d)
+//void SimpleModel::LoadFace(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d)
 //{
-//	glm::vec3 u = b - a;
-//	glm::vec3 v = c - b;
-//	glm::vec3 normal = glm::normalize((glm::cross(u, v)));
+//	Vec3 u = b - a;
+//	Vec3 v = c - b;
+//	Vec3 normal = glm::normalize((glm::cross(u, v)));
 //	//printf("u: %f %f %f v: %f %f %f\n", u.x,u.y, u.z, v.x, v.y, v.z);
 //	//printf("normal: %f %f %f\n", normal.x, normal.y, normal.z);
 //	normals[index] = normal;
@@ -476,14 +476,14 @@ void SimpleModel::SphericalNormals()
 //	index++;
 //}
 //
-//void SimpleModel::DivideFace(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const glm::vec3& d, int count)
+//void SimpleModel::DivideFace(const Vec3& a, const Vec3& b, const Vec3& c, const Vec3& d, int count)
 //{
 //	if (count > 0){
-//		glm::vec3 v1 = glm::normalize(a + b);
-//		glm::vec3 v2 = glm::normalize(b + c);
-//		glm::vec3 v3 = glm::normalize(c + d);
-//		glm::vec3 v4 = glm::normalize(d + a);
-//		glm::vec3 vc = glm::normalize(a + c);
+//		Vec3 v1 = glm::normalize(a + b);
+//		Vec3 v2 = glm::normalize(b + c);
+//		Vec3 v3 = glm::normalize(c + d);
+//		Vec3 v4 = glm::normalize(d + a);
+//		Vec3 vc = glm::normalize(a + c);
 //		DivideFace(a, v1, vc, v4, count - 1);
 //		DivideFace(v1, b, v2, vc, count - 1);
 //		DivideFace(vc, v2, c, v3, count - 1);

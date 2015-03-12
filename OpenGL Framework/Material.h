@@ -1,43 +1,46 @@
-#pragma once
-#include <glm\glm.hpp>
+#ifndef R_MATERIAL_H_
+#define R_MATERIAL_H_
 #include <glew.h>
-
-struct Material
+#include "RVector.h"
+namespace rb
 {
-	glm::vec3 diffuse;
-	GLuint diffuseTextureID;
-	glm::vec3 specular;
-	float shininess;
+	struct Material
+	{
+		Vec3 diffuse;
+		GLuint diffuseTextureID;
+		Vec3 specular;
+		float shininess;
 
-	Material()
-		:diffuse(glm::vec3(1.0f)),
-		diffuseTextureID(0),
-		specular(glm::vec3(1.0f)),
-		shininess(4.0f)
-	{}
-	Material(const glm::vec3& _diffuseColour)
-		:diffuse(_diffuseColour),
-		diffuseTextureID(0),
-		specular(glm::vec3(1.0f)),
-		shininess(4.0f)
-	{}
-	Material(const glm::vec3& _diffuseColour, const glm::vec3& _specularColour, float _shininess)
-		:diffuse(_diffuseColour),
-		diffuseTextureID(0),
-		specular(_specularColour),
-		shininess(_shininess)
-	{}
-	Material(GLuint _diffuseTextureID, const glm::vec3& _specularColour, float _shininess)
-		:diffuse(glm::vec3(1.0f)),
-		diffuseTextureID(_diffuseTextureID),
-		specular(_specularColour),
-		shininess(_shininess)
-	{}
-	Material(GLuint _diffuseTextureID)
-		:diffuseTextureID(_diffuseTextureID),
-		diffuse(glm::vec3(1.0f)),
-		specular(glm::vec3(1.0f)),
-		shininess(4.0f)
-	{}
-	
-};
+		Material()
+			:diffuse(Vec3(1.0f)),
+			diffuseTextureID(0),
+			specular(Vec3(1.0f)),
+			shininess(4.0f)
+		{}
+		Material(const Vec3& _diffuseColour)
+			:diffuse(_diffuseColour),
+			diffuseTextureID(0),
+			specular(Vec3(1.0f)),
+			shininess(4.0f)
+		{}
+		Material(const Vec3& _diffuseColour, const Vec3& _specularColour, float _shininess)
+			:diffuse(_diffuseColour),
+			diffuseTextureID(0),
+			specular(_specularColour),
+			shininess(_shininess)
+		{}
+		Material(GLuint _diffuseTextureID, const Vec3& _specularColour, float _shininess)
+			:diffuse(Vec3(1.0f)),
+			diffuseTextureID(_diffuseTextureID),
+			specular(_specularColour),
+			shininess(_shininess)
+		{}
+		Material(GLuint _diffuseTextureID)
+			:diffuseTextureID(_diffuseTextureID),
+			diffuse(Vec3(1.0f)),
+			specular(Vec3(1.0f)),
+			shininess(4.0f)
+		{}
+	};
+}
+#endif // !R_MATERIAL_H_

@@ -75,18 +75,20 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="RMath.h" />
+    <ClInclude Include="RMatrix.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="QuadSphere.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RString.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SimpleModel.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="Vector.h" />
+    <ClInclude Include="RVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assets.cpp" />
@@ -100,6 +102,9 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="QuadSphere.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RMath.cpp" />
+    <ClCompile Include="RMatrix.cpp" />
+    <ClCompile Include="RVector.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="SimpleModel.cpp" />

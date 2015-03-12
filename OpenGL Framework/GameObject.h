@@ -1,25 +1,30 @@
-#pragma once
-#include "glm/glm.hpp"
+#ifndef R_GAMEOBJECT_H_
+#define R_GAMEOBJECT_H_
 #include "Model.h"
-
-class GameObject
+#include "RVector.h"
+#include "RMatrix.h"
+namespace rb
 {
-public:
-	glm::vec3 position, scale;
-	glm::mat4 rotation;
+	class GameObject
+	{
+	public:
+		Vec3 position, scale;
+		Mat4 rotation;
 
-	GameObject(Model* model);
-	GameObject(Model* model, const glm::vec3& position, const glm::mat4& rotation = glm::mat4(1.0f), const glm::vec3& scale = glm::vec3(1.0f));
-	virtual ~GameObject();
-	
-	inline Model* GetModel() const { return model; }
-	
-	glm::mat4 GetTransform() const;
-	void SetTransform(const glm::vec3& position, const glm::mat4& rotation, const glm::vec3& scale);
+		GameObject(Model* model);
+		GameObject(Model* model, const Vec3& position, const Mat4& rotation = Mat4(1.0f), const Vec3& scale = Vec3(1.0f));
+		virtual ~GameObject();
 
-	virtual void Update(float dt);
+		inline Model* GetModel() const { return model; }
 
-private:
-	Model* model;
-};
+		Mat4 GetTransform() const;
+		void SetTransform(const Vec3& position, const Mat4& rotation, const Vec3& scale);
+
+		virtual void Update(float dt);
+
+	private:
+		Model* model;
+	};
+}
+#endif
 
