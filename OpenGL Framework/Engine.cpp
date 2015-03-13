@@ -47,7 +47,7 @@ void Engine::Run()
 
 		double now = glfwGetTime();
 		double delta = now - lastTime;
-		if (delta >= (double)dt)
+		//if (delta >= (double)dt)
 		{
 			//printf("delta: %d\n", delta);
 			lastTime = now;
@@ -70,9 +70,32 @@ void  Engine::Update(float dt)
 		glfwSetWindowShouldClose(renderer->Window(), GL_TRUE);
 	}
 	//printf("Mouse delta: (%f, %f)\n", Input::MouseDelta().x, Input::MouseDelta().y);
-	camera->RotateCamera(Input::MouseDelta().x, glm::vec3(0.0f, -1.0f, 0.0f));
-	camera->RotateCamera(Input::MouseDelta().y, glm::vec3(1.0f, 0.0f, 0.0f));
-
+	/*camera->RotateCamera(Input::MouseDelta().x, glm::vec3(0.0f, -1.0f, 0.0f));
+	camera->RotateCamera(Input::MouseDelta().y, glm::vec3(1.0f, 0.0f, 0.0f));*/
+	//Vec3 moveDir;
+	if (Input::GetKeyDown(GLFW_KEY_A))
+	{
+		camera->Move(Camera::Left, camSpeed);
+	}
+	else if (Input::GetKeyDown(GLFW_KEY_D))
+	{
+		camera->Move(Camera::Right, camSpeed);
+	}
+	if (Input::GetKeyDown(GLFW_KEY_W))
+	{
+		camera->Move(Camera::Up, camSpeed);
+	}
+	else if (Input::GetKeyDown(GLFW_KEY_S))
+	{
+		camera->Move(Camera::Down, camSpeed);
+	}
+	camera->LookAt(testObj->position);
+	float distance = glm::distance(camera->Position(), testObj->position);
+	if (distance > cameraDistance)
+	{
+		float howFar = distance-cameraDistance;
+		camera->Move(Camera::Forward, howFar);
+	}
 	Input::Update();
 
 	//updateMethod();
@@ -115,7 +138,7 @@ void Engine::Render()
 void Engine::SetupScene()
 {
 
-	camera = new Camera(glm::vec3(0.0f, 1.0f, 5.0f));
+	camera = new Camera(glm::vec3(0.0f, 1.0f, cameraDistance));
 	camera->SetProjection(53.13f, (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
 
 	skybox = new Skybox();
@@ -155,8 +178,8 @@ void Engine::SetupScene()
 	testObj = new GameObject(reflectSphere);*/
 
 	/*Model* nanosuit = new Model("nanosuit/nanosuit.obj",
-		ShaderManager::GetShader(Shader::Reflective));
-	testObj = new GameObject(nanosuit, Vec3(0.0f, -2.0f, 0.0f), Mat4(1.0f), Vec3(0.25f));*/
+		ShaderManager::GetShader(Shader::Refract));
+	testObj = new GameObject(nanosuit, Vec3(0.0f, 0.0f, 0.0f), Mat4(1.0f), Vec3(0.2f));*/
 
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
 		ShaderManager::GetShader(Shader::Refract));

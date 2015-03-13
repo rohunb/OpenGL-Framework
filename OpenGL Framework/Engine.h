@@ -26,7 +26,10 @@ namespace rb
 		const int windowWidth = 1440;
 		const int windowHeight = 1000;
 		const float dt = 0.16f;
+
 		double lastTime = 0.0f;
+		float cameraDistance = 8.0f;
+		float camSpeed = .5f;
 		class Game* game;
 		//Engine components
 		Renderer* renderer;

@@ -9,6 +9,7 @@ namespace rb
 	class RMath
 	{
 	public:
+		static float epsilon;
 		//Vector
 		static Vec3 RotateY(const Vec3& vector, float angle);
 	};

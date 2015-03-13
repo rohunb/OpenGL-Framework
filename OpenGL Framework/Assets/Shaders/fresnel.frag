@@ -18,6 +18,6 @@ void main()
 	vec4 reflectColour = texture(uCubeMap, reflectDir);
 	vec4 refractColour = texture(uCubeMap, refractDir);
 	
-	float mixPercent = pow(dot(fragNormal, -viewDir), 5);
+	float mixPercent = pow(dot(fragNormal, -viewDir), 1);
 	outColour = mix(reflectColour, refractColour, mixPercent);
 }

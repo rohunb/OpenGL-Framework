@@ -9,7 +9,7 @@ namespace rb
 	class Camera
 	{
 	public:
-
+		enum MoveDir {Forward, Backward, Left, Right, Up, Down};
 		Camera(const Vec3& _position = Vec3(0.0f));
 		Camera(const Vec3& _position, const Vec3& up, const Mat4& _orientation);
 		Camera(float _fovY, float _aspectRatio, float _nearClipDistance, float _farClipDistance);
@@ -19,14 +19,15 @@ namespace rb
 		~Camera();
 
 		inline Vec3 Position() const { return position; }
-		Vec3 Up() const;
+		Vec3 GetUpVector() const;
 		Vec3 LookPoint() const;
 		Mat4 View() const;
 		Mat4 Projection() const;
 		void SetProjection(float fovY, float aspectRatio, float nearClipDistance, float farClipDistance);
-		void MoveCamera(Vec3& direction);
+		void Move(MoveDir moveDir, float distance);
+		//void MoveCamera(Vec3& direction);
 		void RotateCamera(float angle, const Vec3& axis);
-
+		void LookAt(const Vec3& destination);
 
 	private:
 		Vec3 position, forward, up, right, worldUp;
