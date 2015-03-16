@@ -29,7 +29,7 @@ namespace rb
 
 		double lastTime = 0.0f;
 		float cameraDistance = 8.0f;
-		float camSpeed = .5f;
+		float camSpeed = .03f;
 		class Game* game;
 		//Engine components
 		Renderer* renderer;

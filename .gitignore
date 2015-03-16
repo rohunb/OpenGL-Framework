@@ -1,11 +1,11 @@
 # Ignored Directories
-[Dd]ebug*/
+Debug/
 
 # Compiled Object files
 *.slo
 *.lo
 #*.obj
-#!OpenGL Framework/Assets/*.obj
+OpenGL\ Framework/Debug/
 
 
 # Precompiled Headers

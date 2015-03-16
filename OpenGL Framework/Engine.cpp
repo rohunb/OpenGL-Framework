@@ -150,7 +150,7 @@ void Engine::SetupScene()
 	//	ShaderManager::GetShader(Shader::Lit_Untextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
-	//TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::Diffuse);
+	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::Diffuse);
 	////TextureManager::LoadTexture("Crate", "de.tga");
 
 	//SimpleModel* textureCubeModel = new SimpleModel(PrimitiveType::Cube,
@@ -169,9 +169,10 @@ void Engine::SetupScene()
 	//	ShaderManager::GetShader(Shader::Reflective),
 	//	Material());
 
-	//Model* testModel = new Model("Sphere Model/sphere.obj",
-	//	//Material(TextureManager::GetTexture("Crate")),
-	//	ShaderManager::GetShader(Shader::Lit_Textured));
+	/*Model* testModel = new Model("Sphere Model/sphere.obj",
+		Material(TextureManager::GetTexture("Crate")),
+		ShaderManager::GetShader(Shader::Lit_Textured));
+	testObj = new GameObject(testModel);*/
 
 	/*Model* reflectSphere = new Model("Sphere Model/sphere.obj",
 		ShaderManager::GetShader(Shader::Fresnel));
@@ -182,7 +183,8 @@ void Engine::SetupScene()
 	testObj = new GameObject(nanosuit, Vec3(0.0f, 0.0f, 0.0f), Mat4(1.0f), Vec3(0.2f));*/
 
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
-		ShaderManager::GetShader(Shader::Refract));
+		Material(TextureManager::GetTexture("Crate")),
+		ShaderManager::GetShader(Shader::Fresnel));
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
 	
 	//testObj = new GameObject(shipModel);
