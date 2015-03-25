@@ -1,10 +1,17 @@
-﻿Build started 3/16/2015 10:23:30 AM.
-     1>Project "D:\Github\OpenGL-Framework\OpenGL Framework\OpenGL Framework.vcxproj" on node 2 (Build target(s)).
+﻿Build started 3/16/2015 3:46:09 PM.
+     1>Project "E:\GitHub\OpenGL Framework\OpenGL Framework\OpenGL Framework.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\glfw\include /ILibraries\glew\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Engine.cpp
-         Engine.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\glfw\include /ILibraries\glew\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Assets.cpp Debug.cpp RMath.cpp RMatrix.cpp RVector.cpp Renderer.cpp
+         Renderer.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         RVector.cpp
+         RMatrix.cpp
+         RMath.cpp
+         Debug.cpp
+         Assets.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Github\OpenGL-Framework\Debug\OpenGL Framework.exe" /INCREMENTAL /NOLOGO /LIBPATH:Libraries\Assimp\lib /LIBPATH:Libraries\soil\lib /LIBPATH:Libraries\glfw\lib /LIBPATH:Libraries\glew\lib assimpd.lib glfw3.lib opengl32.lib glew32s.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Github\OpenGL-Framework\Debug\OpenGL Framework.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Github\OpenGL-Framework\Debug\OpenGL Framework.lib" /MACHINE:X86 Debug\Assets.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.exe" /INCREMENTAL /NOLOGO /LIBPATH:Libraries\Assimp\lib /LIBPATH:Libraries\soil\lib /LIBPATH:Libraries\glfw\lib /LIBPATH:Libraries\glew\lib assimpd.lib glfw3.lib opengl32.lib glew32s.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.lib" /MACHINE:X86 Debug\Assets.obj
          Debug\Camera.obj
          Debug\Debug.obj
          Debug\Engine.obj
@@ -24,9 +31,9 @@
          Debug\SimpleModel.obj
          Debug\Skybox.obj
          Debug\TextureManager.obj
-         OpenGL Framework.vcxproj -> D:\Github\OpenGL-Framework\Debug\OpenGL Framework.exe
-     1>Done Building Project "D:\Github\OpenGL-Framework\OpenGL Framework\OpenGL Framework.vcxproj" (Build target(s)).
+         OpenGL Framework.vcxproj -> E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.exe
+     1>Done Building Project "E:\GitHub\OpenGL Framework\OpenGL Framework\OpenGL Framework.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.03
+Time Elapsed 00:00:00.89

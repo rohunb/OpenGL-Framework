@@ -5,10 +5,10 @@ namespace rb
 {
 	struct Assets
 	{
-		static string texturesPath;
-		static string modelsPath;
-		static string shadersPath;
-		static string skyboxesPath;
+		static const string texturesPath;
+		static const string modelsPath;
+		static const string shadersPath;
+		static const string skyboxesPath;
 	};
 }
 #endif // !ASSETS_H_
