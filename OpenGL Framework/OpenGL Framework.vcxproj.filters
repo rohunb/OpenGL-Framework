@@ -204,5 +204,14 @@
     <None Include="Assets\Shaders\fresnel.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Assets\Shaders\explode_lit_textured.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\explode_lit_textured.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\explode_lit_textured.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

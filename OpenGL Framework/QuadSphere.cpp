@@ -84,17 +84,17 @@ QuadSphere::QuadSphere(int numSubDivisions, Shader* _shader, Material _material)
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertexLength + normalLength + texCoordLength, NULL, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(Shader::VertexAttrib);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib));
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertexLength, &vertices[0]);
-	glVertexAttribPointer(Shader::VertexAttrib, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib), 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
 
-	glEnableVertexAttribArray(Shader::NormalAttrib);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib));
 	glBufferSubData(GL_ARRAY_BUFFER, vertexLength, normalLength, normals);
-	glVertexAttribPointer(Shader::NormalAttrib, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)texCoordLength);
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib), 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)texCoordLength);
 
-	glEnableVertexAttribArray(Shader::TexCoordAttrib);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib));
 	glBufferSubData(GL_ARRAY_BUFFER, vertexLength + normalLength, texCoordLength, texCoords);
-	glVertexAttribPointer(Shader::TexCoordAttrib, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(vertexLength + normalLength));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib), 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(vertexLength + normalLength));
 
 
 

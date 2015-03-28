@@ -41,9 +41,9 @@ void Skybox::Render(Camera* camera) const
 	shader->Use();
 	glBindVertexArray(VAO);
 	//glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, glm::value_ptr(glm::lookAt(glm::vec3(0.0f), camera->LookPoint(), camera->Up())));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(RMatrix::Translate(camera->Position())));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
-	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::StdUniform::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(RMatrix::Translate(camera->Position())));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	glUniform1i(glGetUniformLocation(shader->Program(), "uCubeMap"), 0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texture.texID);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -113,11 +113,11 @@ void Skybox::Init()
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(Shader::VertexAttrib);
-	glVertexAttribPointer(Shader::VertexAttrib, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib), 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glBindVertexArray(0);
 
-	shader = ShaderManager::GetShader(Shader::Skybox);
+	shader = ShaderManager::GetShader(Shader::ShaderType::Skybox);
 	//shader->HandleStdUniforms()
 
 	std::vector<std::string> faces{"hexagon_rt.jpg", "hexagon_lf.jpg", "hexagon_up.jpg", "hexagon_dn.jpg", "hexagon_bk.jpg", "hexagon_ft.jpg" };

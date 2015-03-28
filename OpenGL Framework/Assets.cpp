@@ -1,6 +1,6 @@
 #include "Assets.h"
 using namespace rb;
-string Assets::texturesPath = "Assets/Art/Textures/";
-string Assets::modelsPath = "Assets/Art/Models/";
-string Assets::shadersPath = "Assets/Shaders/";
-string Assets::skyboxesPath = "Assets/Art/Skyboxes/";
+const string Assets::texturesPath = "Assets/Art/Textures/";
+const string Assets::modelsPath = "Assets/Art/Models/";
+const string Assets::shadersPath = "Assets/Shaders/";
+const string Assets::skyboxesPath = "Assets/Art/Skyboxes/";

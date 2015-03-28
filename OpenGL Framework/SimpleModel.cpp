@@ -126,17 +126,17 @@ void SimpleModel::SetupQuadSphere()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertexLength + normalLength + texCoordLength, NULL, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(Shader::VertexAttrib);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib));
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertexLength, &Qvertices[0]);
-	glVertexAttribPointer(Shader::VertexAttrib, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib), 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
 
-	glEnableVertexAttribArray(Shader::NormalAttrib);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib));
 	glBufferSubData(GL_ARRAY_BUFFER, vertexLength, normalLength, Qnormals);
-	glVertexAttribPointer(Shader::NormalAttrib, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)texCoordLength);
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib), 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)texCoordLength);
 
-	glEnableVertexAttribArray(Shader::TexCoordAttrib);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib));
 	glBufferSubData(GL_ARRAY_BUFFER, vertexLength + normalLength, texCoordLength, QtexCoords);
-	glVertexAttribPointer(Shader::TexCoordAttrib, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(vertexLength + normalLength));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib), 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)(vertexLength + normalLength));
 
 
 
@@ -212,12 +212,12 @@ void SimpleModel::SetupCube()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(Shader::VertexAttrib);
-	glVertexAttribPointer(Shader::VertexAttrib, VERT_SIZE, GL_FLOAT, GL_FALSE, ARRAY_STRIDE*FLOAT_SIZE, (GLvoid*)0);
-	glEnableVertexAttribArray(Shader::NormalAttrib);
-	glVertexAttribPointer(Shader::NormalAttrib, VERT_SIZE, GL_FLOAT, GL_FALSE, ARRAY_STRIDE*FLOAT_SIZE, (GLvoid*)(VERT_SIZE*FLOAT_SIZE));
-	glEnableVertexAttribArray(Shader::TexCoordAttrib);
-	glVertexAttribPointer(Shader::TexCoordAttrib, UV_SIZE, GL_FLOAT, GL_FALSE, ARRAY_STRIDE*FLOAT_SIZE, (GLvoid*)(VERT_SIZE * 2 * FLOAT_SIZE));
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib), VERT_SIZE, GL_FLOAT, GL_FALSE, ARRAY_STRIDE*FLOAT_SIZE, (GLvoid*)0);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib), VERT_SIZE, GL_FLOAT, GL_FALSE, ARRAY_STRIDE*FLOAT_SIZE, (GLvoid*)(VERT_SIZE*FLOAT_SIZE));
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib), UV_SIZE, GL_FLOAT, GL_FALSE, ARRAY_STRIDE*FLOAT_SIZE, (GLvoid*)(VERT_SIZE * 2 * FLOAT_SIZE));
 
 	glBindVertexArray(0);
 
@@ -286,13 +286,13 @@ void SimpleModel::SetupSphere()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()* sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(Shader::VertexAttrib, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-	glEnableVertexAttribArray(Shader::VertexAttrib);
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib), 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib));
 
 	glBindBuffer(GL_ARRAY_BUFFER, Norms);
 	glBufferData(GL_ARRAY_BUFFER, normals.size()*sizeof(GLfloat), &normals[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(Shader::NormalAttrib, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-	glEnableVertexAttribArray(Shader::NormalAttrib);
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib), 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib));
 
 	glBindVertexArray(0);
 }

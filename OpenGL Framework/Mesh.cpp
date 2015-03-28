@@ -19,12 +19,12 @@ Mesh::Mesh(const std::vector<Vertex>& _vertices, const std::vector<GLuint>& _ind
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * vertexSize, &vertices[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
-	glEnableVertexAttribArray(Shader::VertexAttrib);
-	glVertexAttribPointer(Shader::VertexAttrib, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid*)0);
-	glEnableVertexAttribArray(Shader::NormalAttrib);
-	glVertexAttribPointer(Shader::NormalAttrib, 3, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid*)offsetof(Vertex, normal));
-	glEnableVertexAttribArray(Shader::TexCoordAttrib);
-	glVertexAttribPointer(Shader::TexCoordAttrib, 2, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid*)offsetof(Vertex, uvCoord));
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::VertexAttrib), 3, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid*)0);
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::NormalAttrib), 3, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid*)offsetof(Vertex, normal));
+	glEnableVertexAttribArray(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib));
+	glVertexAttribPointer(static_cast<GLuint>(Shader::StdAttrib::TexCoordAttrib), 2, GL_FLOAT, GL_FALSE, vertexSize, (GLvoid*)offsetof(Vertex, uvCoord));
 	glBindVertexArray(0);
 }
 

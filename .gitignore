@@ -5,7 +5,7 @@ Debug/
 *.slo
 *.lo
 #*.obj
-OpenGL\ Framework/Debug/
+OpenGL\ Framework/Debug
 
 
 # Precompiled Headers

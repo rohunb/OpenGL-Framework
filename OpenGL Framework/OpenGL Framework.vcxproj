@@ -116,6 +116,9 @@
   <ItemGroup>
     <None Include="Assets\Shaders\3lit_untextured_Shader.frag" />
     <None Include="Assets\Shaders\3lit_untextured_Shader.vert" />
+    <None Include="Assets\Shaders\explode_lit_textured.frag" />
+    <None Include="Assets\Shaders\explode_lit_textured.geom" />
+    <None Include="Assets\Shaders\explode_lit_textured.vert" />
     <None Include="Assets\Shaders\fresnel.frag" />
     <None Include="Assets\Shaders\fresnel.vert" />
     <None Include="Assets\Shaders\lit_textured_Shader.frag" />

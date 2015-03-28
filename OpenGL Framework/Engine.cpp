@@ -12,13 +12,13 @@ Engine::Engine()
 	renderer = new Renderer(windowWidth, windowHeight, 0, 0, "OpenGL Framework");
 	input = new Input(renderer->Window());
 	//updateMethod = nullptr;
-	ShaderManager::LoadShader("unlit_untextured_Shader.vert", "unlit_untextured_Shader.frag", Shader::Unlit_Untextured);
-	ShaderManager::LoadShader("lit_untextured_Shader.vert", "lit_untextured_Shader.frag", Shader::Lit_Untextured);
-	ShaderManager::LoadShader("lit_textured_Shader.vert", "lit_textured_Shader.frag", Shader::Lit_Textured);
-	ShaderManager::LoadShader("skybox_Shader.vert", "skybox_Shader.frag", Shader::Skybox);
-	ShaderManager::LoadShader("reflective.vert", "reflective.frag", Shader::Reflective);
-	ShaderManager::LoadShader("refract.vert", "refract.frag", Shader::Refract);
-	ShaderManager::LoadShader("fresnel.vert", "fresnel.frag", Shader::Fresnel);
+	ShaderManager::LoadShader("unlit_untextured_Shader.vert", "unlit_untextured_Shader.frag", Shader::ShaderType::Unlit_Untextured);
+	ShaderManager::LoadShader("lit_untextured_Shader.vert", "lit_untextured_Shader.frag", Shader::ShaderType::Lit_Untextured);
+	ShaderManager::LoadShader("lit_textured_Shader.vert", "lit_textured_Shader.frag", Shader::ShaderType::Lit_Textured);
+	ShaderManager::LoadShader("skybox_Shader.vert", "skybox_Shader.frag", Shader::ShaderType::Skybox);
+	ShaderManager::LoadShader("reflective.vert", "reflective.frag", Shader::ShaderType::Reflective);
+	ShaderManager::LoadShader("refract.vert", "refract.frag", Shader::ShaderType::Refract);
+	ShaderManager::LoadShader("fresnel.vert", "fresnel.frag", Shader::ShaderType::Fresnel);
 
 	SetupScene();
 }
@@ -118,7 +118,7 @@ void Engine::Render()
 	//SKYBOX
 
 	//temp for reflective
-	Model* model = testObj->GetModel();
+	/*Model* model = testObj->GetModel();
 	Shader* shader = model->shader;
 	shader->Use();
 	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
@@ -128,10 +128,10 @@ void Engine::Render()
 	glUniform1i(glGetUniformLocation(shader->Program(), "uCubeMap"), 0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->GetTexture().texID);
 	model->Render();
-	glUseProgram(0);
+	glUseProgram(0);*/
 	///temp for reflective
 
-	//renderer->RenderGameObject(testObj, camera);
+	renderer->RenderGameObject(testObj, camera);
 	renderer->PostRender();
 }
 
@@ -181,10 +181,11 @@ void Engine::SetupScene()
 	/*Model* nanosuit = new Model("nanosuit/nanosuit.obj",
 		ShaderManager::GetShader(Shader::Refract));
 	testObj = new GameObject(nanosuit, Vec3(0.0f, 0.0f, 0.0f), Mat4(1.0f), Vec3(0.2f));*/
-
+	
+	TextureManager::LoadTexture("SmallShip", "small_ship.tga", Texture::Diffuse);
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
-		Material(TextureManager::GetTexture("Crate")),
-		ShaderManager::GetShader(Shader::Fresnel));
+		Material(TextureManager::GetTexture("SmallShip")),
+		ShaderManager::GetShader(Shader::ShaderType::Lit_Textured));
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
 	
 	//testObj = new GameObject(shipModel);

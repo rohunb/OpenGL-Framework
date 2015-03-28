@@ -4,10 +4,10 @@
 
 using uint = unsigned int;
 using namespace rb;
-Shader::Shader(const char* vertFileName, const char* fragFileName, ShaderType _type)
+Shader::Shader(const string& vertFileName, const string& fragFileName, ShaderType _type)
 	:type(_type)
 {
-	ProcessShader(vertFileName, fragFileName);
+	ProcessShader(vertFileName.c_str(), fragFileName.c_str());
 	Link();
 	HandleStdUniforms("uModel", "uView", "uProjection");
 }
@@ -28,7 +28,7 @@ void Shader::Use()
 
 GLuint Shader::GetStdUniformLoc(StdUniform uniform)
 {
-	return stdUniformLoc[uniform];
+	return static_cast<GLuint>(stdUniformLoc[static_cast<size_t>(uniform)]);
 }
 
 void Shader::HandleStdUniforms(const char* modelMatrixName, const char* viewMatrixName, const char* projMatrixName)
