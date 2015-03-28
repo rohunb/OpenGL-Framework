@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include <vector>
 #include <fstream>
+#include "Debug.h"
 
 using uint = unsigned int;
 using namespace rb;
@@ -11,7 +12,13 @@ Shader::Shader(const string& vertFileName, const string& fragFileName, ShaderTyp
 	Link();
 	HandleStdUniforms("uModel", "uView", "uProjection");
 }
-
+Shader::Shader(const string& vertFileName, const string& fragFileName, const string& geomFileName, ShaderType _type)
+	:type(_type)
+{
+	ProcessShader(vertFileName.c_str(), fragFileName.c_str(), geomFileName.c_str());
+	Link();
+	HandleStdUniforms("uModel", "uView", "uProjection");
+}
 Shader::~Shader()
 {
 	glDetachShader(program, fragShader);
@@ -55,22 +62,37 @@ void Shader::HandleStdUniforms(const char* modelMatrixName, const char* viewMatr
 	}
 }
 
-void Shader::ProcessShader(const char* vertFileName, const char* fragFileName)
+void Shader::ProcessShader(const char* vertFileName, const char* fragFileName, const char* geomFileName)
 {
 	GLint status;
-	program = vertShader = fragShader = 0;
+	program = vertShader = fragShader = geomShader = 0;
 	try
 	{
 		const char* vertText = ReadTextFile(vertFileName);
 		const char* fragText = ReadTextFile(fragFileName);
-
-		if (vertText == NULL || fragText == NULL)
+		const char* geomText = nullptr;
+		if (geomFileName)
+		{
+			geomText = ReadTextFile(geomFileName);
+			if (geomText == nullptr) return;
+		}
+		if (vertText == nullptr || fragText == nullptr)
 		{
 			return;
 		}
 
 		vertShader = glCreateShader(GL_VERTEX_SHADER);
 		fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+		if (geomText)
+		{
+			geomShader = glCreateShader(GL_GEOMETRY_SHADER);
+			if (geomShader == 0)
+			{
+				string errorMsg("Error creating shader");
+				throw errorMsg;
+			}
+			//Debug::Info("created geom shader");
+		}
 
 		if (vertShader == 0 || fragShader == 0)
 		{
@@ -80,6 +102,7 @@ void Shader::ProcessShader(const char* vertFileName, const char* fragFileName)
 
 		glShaderSource(vertShader, 1, &vertText, 0);
 		glShaderSource(fragShader, 1, &fragText, 0);
+		if (geomText) glShaderSource(geomShader, 1, &geomText, 0);
 
 		glCompileShader(vertShader);
 		glGetShaderiv(program, GL_COMPILE_STATUS, &status);
@@ -90,8 +113,10 @@ void Shader::ProcessShader(const char* vertFileName, const char* fragFileName)
 			glGetShaderiv(program, GL_INFO_LOG_LENGTH, &errorLogSize);
 			errorLog.resize(errorLogSize);
 			glGetShaderInfoLog(program, errorLogSize, &errorLogSize, &errorLog[0]);
+			Debug::Error("Shader Compile error: " + errorLog);
 			throw errorLog;
 		}
+		//else Debug::Info("Compiled vert");
 		glCompileShader(fragShader);
 		glGetShaderiv(program, GL_COMPILE_STATUS, &status);
 		if (status == 0) {
@@ -100,15 +125,38 @@ void Shader::ProcessShader(const char* vertFileName, const char* fragFileName)
 			glGetShaderiv(program, GL_INFO_LOG_LENGTH, &errorLogSize);
 			errorLog.resize(errorLogSize);
 			glGetShaderInfoLog(program, errorLogSize, &errorLogSize, &errorLog[0]);
+			Debug::Error("Shader Compile error: " + errorLog);
 			throw errorLog;
 		}
+		//else Debug::Info("Compiled frag");
 
+		if (geomText)
+		{
+			glCompileShader(geomShader);
+			glGetShaderiv(program, GL_COMPILE_STATUS, &status);
+			if (status == 0) {
+				GLsizei errorLogSize = 0;
+				std::string errorLog;
+				glGetShaderiv(program, GL_INFO_LOG_LENGTH, &errorLogSize);
+				errorLog.resize(errorLogSize);
+				glGetShaderInfoLog(program, errorLogSize, &errorLogSize, &errorLog[0]);
+				Debug::Error("Shader Compile error: " + errorLog);
+				throw errorLog;
+			}
+			//else Debug::Info("Compiled geom");
+		}
 		program = glCreateProgram();
 		glAttachShader(program, fragShader);
 		glAttachShader(program, vertShader);
+		if (geomText) 
+		{
+			glAttachShader(program, geomShader);
+			//Debug::Info("attached geom shader");
+		}
 
 		if (vertText) delete[] vertText;
 		if (fragText) delete[] fragText;
+		if (geomText) delete[] geomText;
 	}
 	catch (std::string error)
 	{
@@ -127,15 +175,17 @@ void Shader::Link()
 		{
 			GLsizei errorLogSize = 0;
 			std::string errorLog;
+			//char error[1024];
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &errorLogSize);
 			errorLog.resize(errorLogSize);
-			glGetShaderInfoLog(program, errorLogSize, &errorLogSize, &errorLog[0]);
+			glGetProgramInfoLog(program, errorLogSize, &errorLogSize, &errorLog[0]);
+			//Debug::Error("Shader link error: " + string(error));
 			throw errorLog;
 		}
 	}
 	catch (std::string error)
 	{
-		printf("Shader Linking Error:%s\n", &error[0]);
+		Debug::Error("Shader link error: " + error);
 	}
 }
 

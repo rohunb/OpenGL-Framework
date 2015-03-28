@@ -16,6 +16,14 @@ void ShaderManager::LoadShader(const std::string& vertFileName, const std::strin
 	}
 }
 
+void rb::ShaderManager::LoadShader(const std::string& vertFileName, const std::string& fragFileName, const string& geomFileName, Shader::ShaderType type)
+{
+	if (shaderTable.find(type) == shaderTable.end())
+	{
+		shaderTable[type] = new Shader((Assets::shadersPath + vertFileName).c_str(), (Assets::shadersPath + fragFileName).c_str(), (Assets::shadersPath + geomFileName).c_str(),  type);
+	}
+}
+
 Shader* ShaderManager::GetShader(Shader::ShaderType type)
 {
 	if (shaderTable.find(type) == shaderTable.end())

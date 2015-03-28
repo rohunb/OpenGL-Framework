@@ -52,7 +52,7 @@ void Renderer::PostRender() const
 
 }
 
-void Renderer::RenderGameObject(const GameObject* gameObject, const Camera* camera) const
+void Renderer::RenderGameObject(const GameObject* gameObject, const Camera* camera) 
 {
 	Model* model = gameObject->GetModel();
 	Shader* shader = model->shader;
@@ -63,18 +63,27 @@ void Renderer::RenderGameObject(const GameObject* gameObject, const Camera* came
 	glUniformMatrix4fv(shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
 	
 	glUniform3f(glGetUniformLocation(shader->Program(), "uViewPos"), camera->Position().x, camera->Position().y, camera->Position().z);
-
+	
 	//material
-	if (shader->Type() == Shader::ShaderType::Lit_Untextured)
+	switch (shader->Type())
 	{
+	case Shader::ShaderType::Lit_Untextured:
 		glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.diffuse"), model->material.Diffuse().x, model->material.Diffuse().y, model->material.Diffuse().z);
-	}
-	else if (shader->Type() == Shader::ShaderType::Lit_Textured)
-	{
-		//Debug::Info("Renderer || model tex id: " + std::to_string(model->material.DiffuseTexture().texID));
+		break;
+	case Shader::ShaderType::Lit_Textured:
 		glUniform1i(glGetUniformLocation(shader->Program(), "uMaterial.diffuseTexture"), 0);
 		glBindTexture(GL_TEXTURE_2D, model->material.DiffuseTexture().texID);
+		break;
+	case Shader::ShaderType::Explode_Unlit:
+		glUniform1i(glGetUniformLocation(shader->Program(), "diffuseTexture"), 0);
+		glBindTexture(GL_TEXTURE_2D, model->material.DiffuseTexture().texID);
+		glUniform1f(glGetUniformLocation(shader->Program(), "uTime"), glfwGetTime());
+		glUniform1f(glGetUniformLocation(shader->Program(), "uExplodeMag"),1.0f);
+		break;
+	default:
+		break;
 	}
+
 	glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.specular"), model->material.Specular().x, model->material.Specular().y, model->material.Specular().z);
 	glUniform1f(glGetUniformLocation(shader->Program(), "uMaterial.shininess"), model->material.Shininess());
 	//light

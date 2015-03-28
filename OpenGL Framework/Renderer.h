@@ -20,13 +20,12 @@ namespace rb
 
 		void PreRender() const;
 		void PostRender() const;
-		void RenderGameObject(const GameObject* gameObject, const Camera* camera) const;
+		void RenderGameObject(const GameObject* gameObject, const Camera* camera) ;
 		void SetLight(Light light);
 
 	private:
 		GLFWwindow* window;
 		Light light;
-
 	};
 }
 #endif // !R_RENDERER_H_

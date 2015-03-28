@@ -8,7 +8,13 @@ namespace rb
 	class Shader
 	{
 	public:
-		enum class ShaderType { Unlit_Untextured, Lit_Untextured, Three_Lit_Untextured, Lit_Textured, Skybox, Reflective, Refract, Fresnel };
+		enum class ShaderType { 
+			Unlit_Untextured, Lit_Untextured, Three_Lit_Untextured, Lit_Textured, 
+			//cubeMap
+			Skybox, Reflective, Refract, Fresnel,
+			//Geometry
+			Explode_Unlit
+		};
 		enum class StdUniform { ModelMatrix, ViewMatrix, ProjectionMatrix };
 		enum class StdAttrib { VertexAttrib, NormalAttrib, TexCoordAttrib, ColourAttrib };
 
@@ -23,11 +29,11 @@ namespace rb
 
 	private:
 		ShaderType type;
-		GLuint program, vertShader, fragShader;
+		GLuint program, vertShader, fragShader, geomShader;
 		GLuint stdUniformLoc[sizeof(StdUniform)];
 
 		char* ReadTextFile(const char* fileName);
-		void ProcessShader(const char* vertFileName, const char* fragFileName);
+		void ProcessShader(const char* vertFileName, const char* fragFileName, const char* geomFileName = nullptr);
 		void Link();
 	};
 }

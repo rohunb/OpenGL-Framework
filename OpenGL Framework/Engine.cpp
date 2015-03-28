@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "RMatrix.h"
 #include "Assets.h"
+#include "Debug.h"
 
 using namespace rb;
 Engine::Engine()
@@ -19,6 +20,7 @@ Engine::Engine()
 	ShaderManager::LoadShader("reflective.vert", "reflective.frag", Shader::ShaderType::Reflective);
 	ShaderManager::LoadShader("refract.vert", "refract.frag", Shader::ShaderType::Refract);
 	ShaderManager::LoadShader("fresnel.vert", "fresnel.frag", Shader::ShaderType::Fresnel);
+	ShaderManager::LoadShader("explode_unlit_textured.vert", "explode_unlit_textured.frag", "explode_unlit_textured.geom", Shader::ShaderType::Explode_Unlit);
 
 	SetupScene();
 }
@@ -130,7 +132,6 @@ void Engine::Render()
 	model->Render();
 	glUseProgram(0);*/
 	///temp for reflective
-
 	renderer->RenderGameObject(testObj, camera);
 	renderer->PostRender();
 }
@@ -185,7 +186,7 @@ void Engine::SetupScene()
 	TextureManager::LoadTexture("SmallShip", "small_ship.tga", Texture::Diffuse);
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
 		Material(TextureManager::GetTexture("SmallShip")),
-		ShaderManager::GetShader(Shader::ShaderType::Lit_Textured));
+		ShaderManager::GetShader(Shader::ShaderType::Explode_Unlit));
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
 	
 	//testObj = new GameObject(shipModel);

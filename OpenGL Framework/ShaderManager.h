@@ -3,7 +3,7 @@
 
 #include <map>
 #include <glew.h>
-#include <string>
+#include "RString.h"
 #include "Shader.h"
 
 namespace rb
@@ -13,6 +13,7 @@ namespace rb
 	{
 	public:
 		static void LoadShader(const std::string& vertFileName, const std::string& fragFileName, Shader::ShaderType type);
+		static void LoadShader(const std::string& vertFileName, const std::string& fragFileName, const string& geomFileName, Shader::ShaderType type);
 		static Shader* GetShader(Shader::ShaderType type);
 		static void Clear();
 	private:
