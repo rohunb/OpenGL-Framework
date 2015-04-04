@@ -67,17 +67,17 @@ void Renderer::RenderGameObject(const GameObject* gameObject, const Camera* came
 	//material
 	switch (shader->Type())
 	{
-	case Shader::ShaderType::Lit_Untextured:
+	case Shader::ShaderType::LitUntextured:
 		glUniform3f(glGetUniformLocation(shader->Program(), "uMaterial.diffuse"), model->material.Diffuse().x, model->material.Diffuse().y, model->material.Diffuse().z);
 		break;
-	case Shader::ShaderType::Lit_Textured:
+	case Shader::ShaderType::LitTextured:
 		glUniform1i(glGetUniformLocation(shader->Program(), "uMaterial.diffuseTexture"), 0);
 		glBindTexture(GL_TEXTURE_2D, model->material.DiffuseTexture().texID);
 		break;
-	case Shader::ShaderType::Explode_Unlit:
+	case Shader::ShaderType::ExplodeUnlit:
 		glUniform1i(glGetUniformLocation(shader->Program(), "diffuseTexture"), 0);
 		glBindTexture(GL_TEXTURE_2D, model->material.DiffuseTexture().texID);
-		glUniform1f(glGetUniformLocation(shader->Program(), "uTime"), glfwGetTime());
+		glUniform1f(glGetUniformLocation(shader->Program(), "uTime"), static_cast<float>(glfwGetTime()));
 		glUniform1f(glGetUniformLocation(shader->Program(), "uExplodeMag"),1.0f);
 		break;
 	default:

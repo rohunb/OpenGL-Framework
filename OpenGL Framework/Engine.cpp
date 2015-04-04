@@ -13,15 +13,16 @@ Engine::Engine()
 	renderer = new Renderer(windowWidth, windowHeight, 0, 0, "OpenGL Framework");
 	input = new Input(renderer->Window());
 	//updateMethod = nullptr;
-	ShaderManager::LoadShader("unlit_untextured_Shader.vert", "unlit_untextured_Shader.frag", Shader::ShaderType::Unlit_Untextured);
-	ShaderManager::LoadShader("lit_untextured_Shader.vert", "lit_untextured_Shader.frag", Shader::ShaderType::Lit_Untextured);
-	ShaderManager::LoadShader("lit_textured_Shader.vert", "lit_textured_Shader.frag", Shader::ShaderType::Lit_Textured);
+	ShaderManager::LoadShader("unlit_untextured_Shader.vert", "unlit_untextured_Shader.frag", Shader::ShaderType::UnlitUntextured);
+	ShaderManager::LoadShader("lit_untextured_Shader.vert", "lit_untextured_Shader.frag", Shader::ShaderType::LitUntextured);
+	ShaderManager::LoadShader("lit_textured_Shader.vert", "lit_textured_Shader.frag", Shader::ShaderType::LitTextured);
 	ShaderManager::LoadShader("skybox_Shader.vert", "skybox_Shader.frag", Shader::ShaderType::Skybox);
 	ShaderManager::LoadShader("reflective.vert", "reflective.frag", Shader::ShaderType::Reflective);
 	ShaderManager::LoadShader("refract.vert", "refract.frag", Shader::ShaderType::Refract);
 	ShaderManager::LoadShader("fresnel.vert", "fresnel.frag", Shader::ShaderType::Fresnel);
-	ShaderManager::LoadShader("explode_unlit_textured.vert", "explode_unlit_textured.frag", "explode_unlit_textured.geom", Shader::ShaderType::Explode_Unlit);
-
+	ShaderManager::LoadShader("explode_unlit_textured.vert", "explode_unlit_textured.frag", "explode_unlit_textured.geom", Shader::ShaderType::ExplodeUnlit);
+	ShaderManager::LoadShader("display_normals.vert", "display_normals.frag", "display_normals.geom", Shader::ShaderType::DisplayNormals);
+	
 	SetupScene();
 }
 
@@ -133,6 +134,19 @@ void Engine::Render()
 	glUseProgram(0);*/
 	///temp for reflective
 	renderer->RenderGameObject(testObj, camera);
+
+	//normal geom shader
+	//////////////////////////////////////////////////////////////////////////
+	Shader* normalShader = ShaderManager::GetShader(Shader::ShaderType::DisplayNormals);
+	normalShader->Use();
+	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
+	//glUniformMatrix4fv(shader->GetStdUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+	testObj->GetModel()->Render();
+	glUseProgram(0);
+	//////////////////////////////////////////////////////////////////////////
+
 	renderer->PostRender();
 }
 
@@ -148,7 +162,7 @@ void Engine::SetupScene()
 	renderer->SetLight(light);
 
 	//SimpleModel* cubeModel = new SimpleModel(PrimitiveType::Cube,
-	//	ShaderManager::GetShader(Shader::Lit_Untextured),
+	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
 	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::Diffuse);
@@ -159,11 +173,11 @@ void Engine::SetupScene()
 	//	Material(TextureManager::GetTexture("Crate")));
 
 	//SimpleModel* sphereModel = new SimpleModel(PrimitiveType::Sphere,
-	//	ShaderManager::GetShader(Shader::Lit_Untextured),
+	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
 	//SimpleModel* quadSphere = new SimpleModel(PrimitiveType::QuadSphere,
-	//	ShaderManager::GetShader(Shader::Lit_Untextured),
+	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
 	//SimpleModel* reflectCube = new SimpleModel(PrimitiveType::Cube,
@@ -172,7 +186,7 @@ void Engine::SetupScene()
 
 	/*Model* testModel = new Model("Sphere Model/sphere.obj",
 		Material(TextureManager::GetTexture("Crate")),
-		ShaderManager::GetShader(Shader::Lit_Textured));
+		ShaderManager::GetShader(Shader::ShaderType::LitTextured));
 	testObj = new GameObject(testModel);*/
 
 	/*Model* reflectSphere = new Model("Sphere Model/sphere.obj",
@@ -186,7 +200,7 @@ void Engine::SetupScene()
 	TextureManager::LoadTexture("SmallShip", "small_ship.tga", Texture::Diffuse);
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
 		Material(TextureManager::GetTexture("SmallShip")),
-		ShaderManager::GetShader(Shader::ShaderType::Explode_Unlit));
+		ShaderManager::GetShader(Shader::ShaderType::LitTextured));
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
 	
 	//testObj = new GameObject(shipModel);
@@ -206,7 +220,7 @@ void Engine::SetupScene()
 
 	/*sphere = new GameObject(new SimpleModel(
 		PrimitiveType::Sphere,
-		ShaderManager::GetShader(Lit_Untextured),
+		ShaderManager::GetShader(LitUntextured),
 		Material(glm::vec3(.7f,0.7f,0.7f),glm::vec3(1.0f,1.0f,1.0f),128.0f)));*/
 }
 

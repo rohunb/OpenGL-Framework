@@ -213,5 +213,14 @@
     <None Include="Assets\Shaders\explode_unlit_textured.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Assets\Shaders\display_normals.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\display_normals.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\display_normals.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

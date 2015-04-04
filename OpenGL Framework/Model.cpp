@@ -39,7 +39,7 @@ rb::Model::Model(const string& path, Shader* _shader)
 }
 
 rb::Model::Model(const string& path)
-	: Model(path, ShaderManager::GetShader(Shader::ShaderType::Unlit_Untextured))
+	: Model(path, ShaderManager::GetShader(Shader::ShaderType::UnlitUntextured))
 {}
 
 void rb::Model::LoadModel(const string& path, bool useModelMaterial)

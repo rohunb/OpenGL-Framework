@@ -9,11 +9,11 @@ namespace rb
 	{
 	public:
 		enum class ShaderType { 
-			Unlit_Untextured, Lit_Untextured, Three_Lit_Untextured, Lit_Textured, 
+			UnlitUntextured, LitUntextured, ThreeLitUntextured, LitTextured, 
 			//cubeMap
 			Skybox, Reflective, Refract, Fresnel,
 			//Geometry
-			Explode_Unlit
+			ExplodeUnlit, DisplayNormals
 		};
 		enum class StdUniform { ModelMatrix, ViewMatrix, ProjectionMatrix };
 		enum class StdAttrib { VertexAttrib, NormalAttrib, TexCoordAttrib, ColourAttrib };

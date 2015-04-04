@@ -116,6 +116,9 @@
   <ItemGroup>
     <None Include="Assets\Shaders\3lit_untextured_Shader.frag" />
     <None Include="Assets\Shaders\3lit_untextured_Shader.vert" />
+    <None Include="Assets\Shaders\display_normals.frag" />
+    <None Include="Assets\Shaders\display_normals.geom" />
+    <None Include="Assets\Shaders\display_normals.vert" />
     <None Include="Assets\Shaders\explode_unlit_textured.frag" />
     <None Include="Assets\Shaders\explode_unlit_textured.geom" />
     <None Include="Assets\Shaders\explode_unlit_textured.vert" />
