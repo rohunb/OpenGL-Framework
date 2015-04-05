@@ -29,7 +29,7 @@ Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int window
 	glViewport(windowPosX, windowPosY, windowWidth, windowHeight);
 
 	glEnable(GL_DEPTH_TEST);
-
+	//glEnable(GL_BLEND);
 }
 
 

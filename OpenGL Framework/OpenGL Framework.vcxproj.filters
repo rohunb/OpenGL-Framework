@@ -94,6 +94,12 @@
     <ClInclude Include="Debug.h">
       <Filter>EngineComponents</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>EngineComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="RRandom.h">
+      <Filter>EngineComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assets.cpp">
@@ -152,6 +158,12 @@
       <Filter>Includes</Filter>
     </ClCompile>
     <ClCompile Include="Debug.cpp">
+      <Filter>EngineComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>EngineComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
       <Filter>EngineComponents</Filter>
     </ClCompile>
   </ItemGroup>
@@ -220,6 +232,21 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Assets\Shaders\display_normals.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\particle_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\particle_shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\particles_billboarded.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\particles_billboarded.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\particles_billboarded.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

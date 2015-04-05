@@ -13,7 +13,9 @@ namespace rb
 			//cubeMap
 			Skybox, Reflective, Refract, Fresnel,
 			//Geometry
-			ExplodeUnlit, DisplayNormals
+			ExplodeUnlit, DisplayNormals,
+			//Particles
+			Particle
 		};
 		enum class StdUniform { ModelMatrix, ViewMatrix, ProjectionMatrix };
 		enum class StdAttrib { VertexAttrib, NormalAttrib, TexCoordAttrib, ColourAttrib };

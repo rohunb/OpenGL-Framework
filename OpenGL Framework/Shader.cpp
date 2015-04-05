@@ -64,6 +64,7 @@ void Shader::HandleStdUniforms(const char* modelMatrixName, const char* viewMatr
 
 void Shader::ProcessShader(const char* vertFileName, const char* fragFileName, const char* geomFileName)
 {
+	Debug::Info("Processing shader: " + string(vertFileName));
 	GLint status;
 	program = vertShader = fragShader = geomShader = 0;
 	try
@@ -160,7 +161,7 @@ void Shader::ProcessShader(const char* vertFileName, const char* fragFileName, c
 	}
 	catch (std::string error)
 	{
-		printf("Shader Processing Error:%s\n", &error[0]);
+		Debug::Error("Shader Processing Error: " + error);
 	}
 }
 
@@ -181,6 +182,10 @@ void Shader::Link()
 			glGetProgramInfoLog(program, errorLogSize, &errorLogSize, &errorLog[0]);
 			//Debug::Error("Shader link error: " + string(error));
 			throw errorLog;
+		}
+		else
+		{
+			Debug::Info("Linked Successfully");
 		}
 	}
 	catch (std::string error)

@@ -40,6 +40,7 @@ namespace rb
 		Camera* camera;
 		Light light;
 		Skybox* skybox;
+		class ParticleSystem* particleSystem;
 		void SetupScene();
 	};
 }

@@ -6,6 +6,7 @@
 #include "RMatrix.h"
 #include "Assets.h"
 #include "Debug.h"
+#include "ParticleSystem.h"
 
 using namespace rb;
 Engine::Engine()
@@ -22,7 +23,8 @@ Engine::Engine()
 	ShaderManager::LoadShader("fresnel.vert", "fresnel.frag", Shader::ShaderType::Fresnel);
 	ShaderManager::LoadShader("explode_unlit_textured.vert", "explode_unlit_textured.frag", "explode_unlit_textured.geom", Shader::ShaderType::ExplodeUnlit);
 	ShaderManager::LoadShader("display_normals.vert", "display_normals.frag", "display_normals.geom", Shader::ShaderType::DisplayNormals);
-	
+	ShaderManager::LoadShader("particle_shader.vert", "particle_shader.frag", Shader::ShaderType::Particle);
+
 	SetupScene();
 }
 
@@ -113,11 +115,11 @@ void Engine::Render()
 	//camera->RotateCamera(.3f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	//SKYBOX
-	glDepthMask(GL_FALSE);
+	/*glDepthMask(GL_FALSE);
 
 	skybox->Render(camera);
 	glDepthMask(GL_TRUE);
-	glUseProgram(0);
+	glUseProgram(0);*/
 	//SKYBOX
 
 	//temp for reflective
@@ -133,18 +135,19 @@ void Engine::Render()
 	model->Render();
 	glUseProgram(0);*/
 	///temp for reflective
-	renderer->RenderGameObject(testObj, camera);
-
+	//renderer->RenderGameObject(testObj, camera);
+	
+	particleSystem->Render(camera);
 	//normal geom shader
 	//////////////////////////////////////////////////////////////////////////
-	Shader* normalShader = ShaderManager::GetShader(Shader::ShaderType::DisplayNormals);
-	normalShader->Use();
-	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
-	//glUniformMatrix4fv(shader->GetStdUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
-	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
-	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
-	testObj->GetModel()->Render();
-	glUseProgram(0);
+	//Shader* normalShader = ShaderManager::GetShader(Shader::ShaderType::DisplayNormals);
+	//normalShader->Use();
+	//glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
+	////glUniformMatrix4fv(shader->GetStdUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	//glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	//glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+	//testObj->GetModel()->Render();
+	//glUseProgram(0);
 	//////////////////////////////////////////////////////////////////////////
 
 	renderer->PostRender();
@@ -203,25 +206,12 @@ void Engine::SetupScene()
 		ShaderManager::GetShader(Shader::ShaderType::LitTextured));
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
 	
-	//testObj = new GameObject(shipModel);
-	//testObj = new GameObject(reflectShip);
-	//testObj->scale = Vec3(0.05f);
-	//testObj = new GameObject(diamond);
-	//testObj->scale = Vec3(0.005f);
+	particleSystem = new ParticleSystem(
+		//TextureManager::GetTexture("Crate"), 
+		ShaderManager::GetShader(Shader::ShaderType::Particle),
+		50000);
 
-	//testObj = new GameObject(reflectSphere);
-	
-	//testObj = new GameObject(testModel);
-	//testObj = new GameObject(reflectCube);
-	//testObj = new GameObject(textureCubeModel);
-	//testObj = new GameObject(cubeModel);
-	//sphere = new GameObject(quadSphere);
-	//sphere = new GameObject(sphereModel);
 
-	/*sphere = new GameObject(new SimpleModel(
-		PrimitiveType::Sphere,
-		ShaderManager::GetShader(LitUntextured),
-		Material(glm::vec3(.7f,0.7f,0.7f),glm::vec3(1.0f,1.0f,1.0f),128.0f)));*/
 }
 
 void Engine::RegisterGame(class Game* game)

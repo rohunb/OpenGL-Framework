@@ -76,12 +76,14 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="RMath.h" />
     <ClInclude Include="RMatrix.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="QuadSphere.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RRandom.h" />
     <ClInclude Include="RString.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
@@ -102,7 +104,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="QuadSphere.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RMath.cpp" />
     <ClCompile Include="RMatrix.cpp" />
@@ -128,6 +132,11 @@
     <None Include="Assets\Shaders\lit_textured_Shader.vert" />
     <None Include="Assets\Shaders\lit_untextured_Shader.frag" />
     <None Include="Assets\Shaders\lit_untextured_Shader.vert" />
+    <None Include="Assets\Shaders\particles_billboarded.frag" />
+    <None Include="Assets\Shaders\particles_billboarded.geom" />
+    <None Include="Assets\Shaders\particles_billboarded.vert" />
+    <None Include="Assets\Shaders\particle_shader.frag" />
+    <None Include="Assets\Shaders\particle_shader.vert" />
     <None Include="Assets\Shaders\reflective.frag" />
     <None Include="Assets\Shaders\reflective.vert" />
     <None Include="Assets\Shaders\refract.frag" />
