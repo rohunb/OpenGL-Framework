@@ -1,14 +1,10 @@
-﻿Build started 4/5/2015 11:39:04 AM.
+﻿Build started 4/5/2015 2:30:26 PM.
      1>Project "E:\GitHub\OpenGL Framework\OpenGL Framework\OpenGL Framework.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\glfw\include /ILibraries\glew\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Debug.cpp ParticleSystem.cpp RMath.cpp RMatrix.cpp RVector.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ILibraries\Assimp\include /ILibraries\glm /ILibraries\glfw\include /ILibraries\glew\include /ILibraries\soil\src /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Engine.cpp ParticleSystem.cpp
          ParticleSystem.cpp
+         Engine.cpp
          Generating Code...
-         Skipping... (no relevant changes detected)
-         RVector.cpp
-         RMatrix.cpp
-         RMath.cpp
-         Debug.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.exe" /INCREMENTAL /NOLOGO /LIBPATH:Libraries\Assimp\lib /LIBPATH:Libraries\soil\lib /LIBPATH:Libraries\glfw\lib /LIBPATH:Libraries\glew\lib assimpd.lib glfw3.lib opengl32.lib glew32s.lib SOIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.lib" /MACHINE:X86 Debug\Assets.obj
          Debug\Camera.obj
@@ -32,63 +28,9 @@
          Debug\SimpleModel.obj
          Debug\Skybox.obj
          Debug\TextureManager.obj
-     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewBufferData imported
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewBufferData imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewBufferData imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewBufferData imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewBufferData imported
-     1>Skybox.obj : warning LNK4217: locally defined symbol ___glewGenBuffers imported in function __unwindfunclet$??$?HDU?$char_traits@D@std@@V?$allocator@D@1@@std@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@0@ABV10@PBD@Z$0
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewGenBuffers imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewGenBuffers imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewGenBuffers imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewGenBuffers imported
-     1>Skybox.obj : warning LNK4217: locally defined symbol ___glewEnableVertexAttribArray imported in function "public: void __thiscall std::_Vector_iterator<class std::_Vector_val<struct std::_Simple_types<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > >::__autoclassinit2(unsigned int)" (?__autoclassinit2@?$_Vector_iterator@V?$_Vector_val@U?$_Simple_types@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@@std@@@std@@QAEXI@Z)
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
-     1>Skybox.obj : warning LNK4217: locally defined symbol ___glewVertexAttribPointer imported in function "public: struct std::_Iterator_base12 & __thiscall std::_Iterator_base12::operator=(struct std::_Iterator_base12 const &)" (??4_Iterator_base12@std@@QAEAAU01@ABU01@@Z)
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewBindVertexArray imported
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewBindVertexArray imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewBindVertexArray imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewBindVertexArray imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewBindVertexArray imported
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewGenVertexArrays imported
-     1>Mesh.obj : warning LNK4049: locally defined symbol ___glewGenVertexArrays imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewGenVertexArrays imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewGenVertexArrays imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewGenVertexArrays imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewBufferSubData imported
-     1>QuadSphere.obj : warning LNK4049: locally defined symbol ___glewBufferSubData imported
-     1>SimpleModel.obj : warning LNK4049: locally defined symbol ___glewBufferSubData imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewUniform1f imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewUniform1i imported
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewUniform1i imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
-     1>Skybox.obj : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
-     1>ParticleSystem.obj : warning LNK4049: locally defined symbol ___glewUseProgram imported
-     1>TextureManager.obj : warning LNK4049: locally defined symbol ___glewGenerateMipmap imported
-     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'E:\GitHub\OpenGL Framework\Debug\vc120.pdb'; linking object as if no debug info
-     1>SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'E:\GitHub\OpenGL Framework\Debug\vc120.pdb'; linking object as if no debug info
-     1>SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'E:\GitHub\OpenGL Framework\Debug\vc120.pdb'; linking object as if no debug info
-     1>SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'E:\GitHub\OpenGL Framework\Debug\vc120.pdb'; linking object as if no debug info
-     1>SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'E:\GitHub\OpenGL Framework\Debug\vc120.pdb'; linking object as if no debug info
          OpenGL Framework.vcxproj -> E:\GitHub\OpenGL Framework\Debug\OpenGL Framework.exe
      1>Done Building Project "E:\GitHub\OpenGL Framework\OpenGL Framework\OpenGL Framework.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.08
+Time Elapsed 00:00:01.43

@@ -41,7 +41,7 @@ void rb::ParticleSystem::Render(class Camera* camera) const
 	GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
-	glUniform1f(glGetUniformLocation(shader->Program(), "uSize"), 1.0f);
+	glUniform1f(glGetUniformLocation(shader->Program(), "uSize"), .5f);
 	glUniform1i(glGetUniformLocation(shader->Program(), "diffuseTexture"), 0);
 	glBindTexture(GL_TEXTURE_2D, texture.texID);
 	glBindVertexArray(VAO);
@@ -60,7 +60,7 @@ void rb::ParticleSystem::Init()
 	std::uniform_real_distribution<float> colourDist(0.0f, 1.0f);
 	for (size_t i = 0; i < numParticles; i++)
 	{
-		positions.push_back(Vec3(dist(mt), dist(mt), 0.0f));
+		positions.push_back(Vec3(dist(mt), dist(mt), dist(mt)));
 		colours.push_back(Vec3(colourDist(mt), colourDist(mt), colourDist(mt)));
 		//Debug::Info("Position: " + std::to_string(positions[i].x) + ","+std::to_string(positions[i].y));
 	}

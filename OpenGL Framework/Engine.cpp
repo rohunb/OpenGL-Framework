@@ -213,7 +213,7 @@ void Engine::SetupScene()
 	particleSystem = new ParticleSystem(
 		TextureManager::GetTexture("Particle"), 
 		ShaderManager::GetShader(Shader::ShaderType::BillboardedParticle),
-		50);
+		500);
 
 
 }
