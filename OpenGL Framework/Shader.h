@@ -15,7 +15,7 @@ namespace rb
 			//Geometry
 			ExplodeUnlit, DisplayNormals,
 			//Particles
-			Particle
+			Particle, BillboardedParticle
 		};
 		enum class StdUniform { ModelMatrix, ViewMatrix, ProjectionMatrix };
 		enum class StdAttrib { VertexAttrib, NormalAttrib, TexCoordAttrib, ColourAttrib };

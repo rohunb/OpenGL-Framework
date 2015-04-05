@@ -24,6 +24,7 @@ Engine::Engine()
 	ShaderManager::LoadShader("explode_unlit_textured.vert", "explode_unlit_textured.frag", "explode_unlit_textured.geom", Shader::ShaderType::ExplodeUnlit);
 	ShaderManager::LoadShader("display_normals.vert", "display_normals.frag", "display_normals.geom", Shader::ShaderType::DisplayNormals);
 	ShaderManager::LoadShader("particle_shader.vert", "particle_shader.frag", Shader::ShaderType::Particle);
+	ShaderManager::LoadShader("particles_billboarded.vert", "particles_billboarded.frag", "particles_billboarded.geom", Shader::ShaderType::BillboardedParticle);
 
 	SetupScene();
 }
@@ -115,11 +116,10 @@ void Engine::Render()
 	//camera->RotateCamera(.3f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	//SKYBOX
-	/*glDepthMask(GL_FALSE);
-
+	glDepthMask(GL_FALSE);
 	skybox->Render(camera);
 	glDepthMask(GL_TRUE);
-	glUseProgram(0);*/
+	glUseProgram(0);
 	//SKYBOX
 
 	//temp for reflective
@@ -168,7 +168,7 @@ void Engine::SetupScene()
 	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
-	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::Diffuse);
+	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::TextureType::Diffuse);
 	////TextureManager::LoadTexture("Crate", "de.tga");
 
 	//SimpleModel* textureCubeModel = new SimpleModel(PrimitiveType::Cube,
@@ -200,16 +200,20 @@ void Engine::SetupScene()
 		ShaderManager::GetShader(Shader::Refract));
 	testObj = new GameObject(nanosuit, Vec3(0.0f, 0.0f, 0.0f), Mat4(1.0f), Vec3(0.2f));*/
 	
-	TextureManager::LoadTexture("SmallShip", "small_ship.tga", Texture::Diffuse);
+	TextureManager::LoadTexture("SmallShip", "small_ship.tga", Texture::TextureType::Diffuse);
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
 		Material(TextureManager::GetTexture("SmallShip")),
 		ShaderManager::GetShader(Shader::ShaderType::LitTextured));
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
 	
+	//TextureManager::LoadTexture("Particle", "particle.png", Texture::TextureType::Diffuse);
+	TextureManager::LoadTexture("Particle", "2201.jpg", Texture::TextureType::Diffuse);
+	TextureManager::LoadTexture("Smiley", "smiley01.jpg", Texture::TextureType::Diffuse);
+	
 	particleSystem = new ParticleSystem(
-		//TextureManager::GetTexture("Crate"), 
-		ShaderManager::GetShader(Shader::ShaderType::Particle),
-		50000);
+		TextureManager::GetTexture("Particle"), 
+		ShaderManager::GetShader(Shader::ShaderType::BillboardedParticle),
+		50);
 
 
 }

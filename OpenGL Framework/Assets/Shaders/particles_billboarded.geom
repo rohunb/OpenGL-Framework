@@ -1,18 +1,49 @@
 #version 330 core
-layout (location = 0) in vec3 inPosition;
-//layout (location = 1) in vec3 inColour;
+layout (points) in;
+layout (triangle_strip) out;
+layout (max_vertices = 4) out;
 
-uniform mat4 uView;
 uniform mat4 uProjection;
-//uniform vec2 uPosition;
-//uniform vec4 uColour;
+uniform float uSize;
 
-//out vec2 fragTexCoord;
-//out vec4 fragParticleColour;
+in VertOut{
+	vec4 colour;
+} vertOut[];
+
+out vec2 vertUV;
+out vec4 vertColour;
 
 void main()
 {
-	//fragParticleColour = vec4(inColour,1.0f);
-	gl_Position = uProjection * uView * vec4(inPosition, 1.0f);
+	vec4 pos = gl_in[0].gl_Position;
+	
+	//bottom left
+	vec2 botLeft = pos.xy + vec2(-0.5f,-0.5f) * uSize;
+	gl_Position = uProjection * vec4(botLeft, pos.zw);
+	vertUV = vec2(0.0f,0.0f);
+	vertColour = vertOut[0].colour;
+	EmitVertex();
 
+	//top left
+	vec2 topLeft = pos.xy + vec2(-0.5f,0.5f) * uSize;
+	gl_Position = uProjection * vec4(topLeft, pos.zw);
+	vertUV = vec2(0.0f,1.0f);
+	vertColour = vertOut[0].colour;
+	EmitVertex();
+
+	//bottom right
+	vec2 botRight = pos.xy + vec2(0.5f,-0.5f) * uSize;
+	gl_Position = uProjection * vec4(botRight, pos.zw);
+	vertUV = vec2(1.0f,0.0f);
+	vertColour = vertOut[0].colour;
+	EmitVertex();
+
+	//top right
+	vec2 topRight = pos.xy + vec2(0.5f,0.5f) * uSize;
+	gl_Position = uProjection * vec4(topRight, pos.zw);
+	vertUV = vec2(1.0f,1.0f);
+	vertColour = vertOut[0].colour;
+	EmitVertex();
+
+	EndPrimitive();
 }

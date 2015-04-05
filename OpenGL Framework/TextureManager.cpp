@@ -40,6 +40,7 @@ Texture TextureManager::GetTexture(const std::string& name)
 	if (textureTable.find(name) == textureTable.end())
 	{
 		std::cerr << "Texture " << name << " not found in Manager\n";
+		throw "No such texture";
 	}
 	else
 	{

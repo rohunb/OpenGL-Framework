@@ -11,13 +11,13 @@ namespace rb
 	class ParticleSystem
 	{
 	public:
-		ParticleSystem(class Shader* shader, size_t numParticles);
+		ParticleSystem(Texture texture, class Shader* shader, size_t numParticles);
 		~ParticleSystem();
 		void Render(class Camera* camera) const;
 	private:
 		void Init();
 		std::vector<Vec3> positions;
-		//std::vector<Vec3> colours;
+		std::vector<Vec3> colours;
 		Vec3 colour;
 		size_t numParticles;
 		Shader* shader;

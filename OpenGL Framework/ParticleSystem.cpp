@@ -6,30 +6,49 @@
 
 using namespace rb;
 
-rb::ParticleSystem::ParticleSystem(Shader* shader, size_t numParticles)
-	:shader(shader), numParticles(numParticles)
+rb::ParticleSystem::ParticleSystem(Texture texture, Shader* shader, size_t numParticles)
+	:texture(texture),
+	shader(shader), 
+	numParticles(numParticles)
 {
 	Init();
 }
 
 rb::ParticleSystem::~ParticleSystem()
 {
-	if(rand) delete rand;
 }
 
 void rb::ParticleSystem::Render(class Camera* camera) const
 {
-	shader->Use();
+	//Simple Particles
+	/*shader->Use();
 	GLuint viewLoc = shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix);
 	GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
 	GLuint colourLoc = glGetUniformLocation(shader->Program(), "uColour");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
-	glUniform3f(colourLoc, 1.0f, 0.0f, 0.0f);
+	glUniform3f(colourLoc, 1.0f, 1.0f, 0.0f);
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_POINTS, 0, numParticles);
 	glBindVertexArray(0);
-	glUseProgram(0);
+	glUseProgram(0);*/
+
+	//////////////////////////////////////////////////////////////////////////
+	//billboarded
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	shader->Use();
+	GLuint viewLoc = shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix);
+	GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+	glUniform1f(glGetUniformLocation(shader->Program(), "uSize"), 1.0f);
+	glUniform1i(glGetUniformLocation(shader->Program(), "diffuseTexture"), 0);
+	glBindTexture(GL_TEXTURE_2D, texture.texID);
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_POINTS, 0, numParticles);
+	glBindVertexArray(0);
+	glUseProgram(0); 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void rb::ParticleSystem::Init()
@@ -37,21 +56,33 @@ void rb::ParticleSystem::Init()
 	//rand=new Random(0.0f, 10.0f);
 	std::random_device rd;
 	std::mt19937 mt(rd());
-	std::uniform_real_distribution<float> dist(-3.0f, 3.0f);
+	std::uniform_real_distribution<float> dist(-5.0f, 5.0f);
+	std::uniform_real_distribution<float> colourDist(0.0f, 1.0f);
 	for (size_t i = 0; i < numParticles; i++)
 	{
 		positions.push_back(Vec3(dist(mt), dist(mt), 0.0f));
+		colours.push_back(Vec3(colourDist(mt), colourDist(mt), colourDist(mt)));
 		//Debug::Info("Position: " + std::to_string(positions[i].x) + ","+std::to_string(positions[i].y));
 	}
+
+	const GLsizeiptr positionLength = numParticles * sizeof(Vec3);
+	const GLsizeiptr coloursLength = numParticles * sizeof(Vec3);
 
 	GLuint VBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, numParticles * sizeof(Vec3), &positions[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glBufferData(GL_ARRAY_BUFFER, positionLength +coloursLength, nullptr, GL_STATIC_DRAW);
+
 	glEnableVertexAttribArray(0);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, positionLength, &positions[0]);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+
+	glEnableVertexAttribArray(1);
+	glBufferSubData(GL_ARRAY_BUFFER, positionLength, coloursLength, &colours[0]);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)positionLength);
+
 	glBindVertexArray(0);
 }
 

@@ -5,12 +5,12 @@ namespace rb
 {
 	struct Texture
 	{
-		enum TextureType { Diffuse, Specular, Normal, CubeMap };
+		enum class TextureType { Diffuse, Specular, Normal, CubeMap };
 		TextureType texType;
 		GLuint texID;
 
 		Texture()
-			:Texture(0, Diffuse)
+			:Texture(0, TextureType::Diffuse)
 		{
 		}
 		Texture(GLuint _texID, TextureType _texType)

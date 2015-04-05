@@ -125,7 +125,7 @@ struct Texture rb::Model::LoadMaterialTexture(aiMaterial* aiMat, aiTextureType t
 	aiString name;
 	aiMat->GetTexture(type, 0, &name);
 	string texName = string(name.C_Str());
-	TextureManager::LoadTextureAbsPath(texName, directory + "/" + texName, Texture::Diffuse);
+	TextureManager::LoadTextureAbsPath(texName, directory + "/" + texName, Texture::TextureType::Diffuse);
 	Debug::Info("Model Texture: " + texName + " ID: " + std::to_string((TextureManager::GetTexture(texName).texID)));
 	return TextureManager::GetTexture(texName);
 }
