@@ -4,6 +4,7 @@
 namespace rb
 {
 	using string = std::string;
+	
 }
 
 #endif

@@ -25,6 +25,7 @@ namespace rb
 
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 		static void MouseCallback(GLFWwindow* window, double xPos, double yPos);
+		static void MouseClickCallback(GLFWwindow* window, int button, int action, int mods);
 	};
 }
 #endif // !R_INPUT_H_

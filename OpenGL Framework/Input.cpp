@@ -1,4 +1,7 @@
 #include "Input.h"
+#include "RString.h"
+#include "Debug.h"
+
 using namespace rb;
 
 bool* Input::keyStates = new bool[1024];
@@ -16,6 +19,7 @@ Input::Input(GLFWwindow* window)
 	}
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetCursorPosCallback(window, MouseCallback);
+	glfwSetMouseButtonCallback(window, MouseClickCallback);
 }
 
 
@@ -70,4 +74,14 @@ void Input::MouseCallback(GLFWwindow* window, double xPos, double yPos)
 	mouseDelta.y *= sensitivity;
 	lastMousePos.x = (float)xPos;
 	lastMousePos.y = (float)yPos;
+}
+
+void rb::Input::MouseClickCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		double xPos, yPos;
+		glfwGetCursorPos(window, &xPos, &yPos);
+		Debug::Info("Mouse click " + std::to_string(xPos) + "," + std::to_string(yPos));
+	}
 }

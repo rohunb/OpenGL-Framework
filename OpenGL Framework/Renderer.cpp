@@ -15,7 +15,7 @@ Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int window
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Framework", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	/*glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(windowWidth, windowHeight);

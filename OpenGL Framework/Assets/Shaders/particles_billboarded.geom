@@ -17,13 +17,6 @@ void main()
 {
 	vec4 pos = gl_in[0].gl_Position;
 	
-	//bottom left
-	vec2 botLeft = pos.xy + vec2(-0.5f,-0.5f) * uSize;
-	gl_Position = uProjection * vec4(botLeft, pos.zw);
-	vertUV = vec2(0.0f,0.0f);
-	vertColour = vertOut[0].colour;
-	EmitVertex();
-
 	//top left
 	vec2 topLeft = pos.xy + vec2(-0.5f,0.5f) * uSize;
 	gl_Position = uProjection * vec4(topLeft, pos.zw);
@@ -31,10 +24,11 @@ void main()
 	vertColour = vertOut[0].colour;
 	EmitVertex();
 
-	//bottom right
-	vec2 botRight = pos.xy + vec2(0.5f,-0.5f) * uSize;
-	gl_Position = uProjection * vec4(botRight, pos.zw);
-	vertUV = vec2(1.0f,0.0f);
+
+	//bottom left
+	vec2 botLeft = pos.xy + vec2(-0.5f,-0.5f) * uSize;
+	gl_Position = uProjection * vec4(botLeft, pos.zw);
+	vertUV = vec2(0.0f,0.0f);
 	vertColour = vertOut[0].colour;
 	EmitVertex();
 
@@ -45,5 +39,13 @@ void main()
 	vertColour = vertOut[0].colour;
 	EmitVertex();
 
+	//bottom right
+	vec2 botRight = pos.xy + vec2(0.5f,-0.5f) * uSize;
+	gl_Position = uProjection * vec4(botRight, pos.zw);
+	vertUV = vec2(1.0f,0.0f);
+	vertColour = vertOut[0].colour;
+	EmitVertex();
+
+	
 	EndPrimitive();
 }

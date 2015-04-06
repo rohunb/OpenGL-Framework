@@ -163,7 +163,7 @@ void Engine::SetupScene()
 
 	light = Light(glm::vec3(-4.0f, 1.0f, 4.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec3(1.0f));
 	renderer->SetLight(light);
-
+	Debug::Info("test " + std::string(__FILE__) + " line " + std::to_string(__LINE__));
 	//SimpleModel* cubeModel = new SimpleModel(PrimitiveType::Cube,
 	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
