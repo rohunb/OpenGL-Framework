@@ -21,34 +21,39 @@ rb::ParticleSystem::~ParticleSystem()
 void rb::ParticleSystem::Render(class Camera* camera) const
 {
 	//Simple Particles
-	/*shader->Use();
-	GLuint viewLoc = shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix);
-	GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
-	GLuint colourLoc = glGetUniformLocation(shader->Program(), "uColour");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
-	glUniform3f(colourLoc, 1.0f, 1.0f, 0.0f);
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_POINTS, 0, numParticles);
-	glBindVertexArray(0);
-	glUseProgram(0);*/
-
-	//////////////////////////////////////////////////////////////////////////
-	//billboarded
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	shader->Use();
-	GLuint viewLoc = shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix);
-	GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
-	glUniform1f(glGetUniformLocation(shader->Program(), "uSize"), .5f);
-	glUniform1i(glGetUniformLocation(shader->Program(), "diffuseTexture"), 0);
-	glBindTexture(GL_TEXTURE_2D, texture.texID);
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_POINTS, 0, numParticles);
-	glBindVertexArray(0);
-	glUseProgram(0); 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (shader->Type() == Shader::ShaderType::Particle)
+	{
+		shader->Use();
+		GLuint viewLoc = shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix);
+		GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
+		GLuint colourLoc = glGetUniformLocation(shader->Program(), "uColour");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+		glUniform3f(colourLoc, 1.0f, 0.0f, 0.0f);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_POINTS, 0, numParticles);
+		glBindVertexArray(0);
+		glUseProgram(0);
+	}
+	else
+	{
+		//////////////////////////////////////////////////////////////////////////
+		//billboarded
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+		shader->Use();
+		GLuint viewLoc = shader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix);
+		GLuint projLoc = shader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix);
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+		glUniform1f(glGetUniformLocation(shader->Program(), "uSize"), .5f);
+		glUniform1i(glGetUniformLocation(shader->Program(), "diffuseTexture"), 0);
+		glBindTexture(GL_TEXTURE_2D, texture.texID);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_POINTS, 0, numParticles);
+		glBindVertexArray(0);
+		glUseProgram(0);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
 }
 
 void rb::ParticleSystem::Init()
@@ -58,6 +63,8 @@ void rb::ParticleSystem::Init()
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<float> dist(-5.0f, 5.0f);
 	std::uniform_real_distribution<float> colourDist(0.0f, 1.0f);
+	positions.reserve(numParticles);
+	colours.reserve(numParticles);
 	for (size_t i = 0; i < numParticles; i++)
 	{
 		positions.push_back(Vec3(dist(mt), dist(mt), dist(mt)));

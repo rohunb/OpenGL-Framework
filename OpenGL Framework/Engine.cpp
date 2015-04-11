@@ -135,19 +135,20 @@ void Engine::Render()
 	model->Render();
 	glUseProgram(0);*/
 	///temp for reflective
-	//renderer->RenderGameObject(testObj, camera);
 	
-	particleSystem->Render(camera);
+	renderer->RenderGameObject(testObj, camera);
+	
+	//particleSystem->Render(camera);
 	//normal geom shader
 	//////////////////////////////////////////////////////////////////////////
-	//Shader* normalShader = ShaderManager::GetShader(Shader::ShaderType::DisplayNormals);
-	//normalShader->Use();
-	//glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
-	////glUniformMatrix4fv(shader->GetStdUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
-	//glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
-	//glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
-	//testObj->GetModel()->Render();
-	//glUseProgram(0);
+	Shader* normalShader = ShaderManager::GetShader(Shader::ShaderType::DisplayNormals);
+	normalShader->Use();
+	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ModelMatrix), 1, GL_FALSE, RMatrix::ValuePtr(testObj->GetTransform()));
+	//glUniformMatrix4fv(shader->GetStdUniformLoc(ModelMatrix), 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ViewMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->View()));
+	glUniformMatrix4fv(normalShader->GetStdUniformLoc(Shader::StdUniform::ProjectionMatrix), 1, GL_FALSE, RMatrix::ValuePtr(camera->Projection()));
+	testObj->GetModel()->Render();
+	glUseProgram(0);
 	//////////////////////////////////////////////////////////////////////////
 
 	renderer->PostRender();
@@ -163,7 +164,7 @@ void Engine::SetupScene()
 
 	light = Light(glm::vec3(-4.0f, 1.0f, 4.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f), glm::vec3(1.0f));
 	renderer->SetLight(light);
-	Debug::Info("test " + std::string(__FILE__) + " line " + std::to_string(__LINE__));
+
 	//SimpleModel* cubeModel = new SimpleModel(PrimitiveType::Cube,
 	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
@@ -208,12 +209,11 @@ void Engine::SetupScene()
 	
 	//TextureManager::LoadTexture("Particle", "particle.png", Texture::TextureType::Diffuse);
 	TextureManager::LoadTexture("Particle", "2201.jpg", Texture::TextureType::Diffuse);
-	TextureManager::LoadTexture("Smiley", "smiley01.jpg", Texture::TextureType::Diffuse);
 	
 	particleSystem = new ParticleSystem(
 		TextureManager::GetTexture("Particle"), 
-		ShaderManager::GetShader(Shader::ShaderType::BillboardedParticle),
-		500);
+		ShaderManager::GetShader(Shader::ShaderType::Particle),
+		50000);
 
 
 }

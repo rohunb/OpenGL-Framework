@@ -14,5 +14,5 @@ void main()
 {
 	fragParticleColour = vec4(inColour,1.0f);
 	gl_Position = uProjection * uView * vec4(inPosition, 1.0f);
-
+	gl_PointSize = 20.0;
 }

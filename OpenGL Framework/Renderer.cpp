@@ -17,18 +17,13 @@ Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int window
 	glfwMakeContextCurrent(window);
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	/*glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitWindowSize(windowWidth, windowHeight);
-	glutInitWindowPosition(windowPosX, windowPosY);
-	glutCreateWindow(windowName);*/
-
 	glewExperimental = GL_TRUE;
 	int status = glewInit();
 	std::cout << "Glew Init status: " << status << std::endl;
 
 	glViewport(windowPosX, windowPosY, windowWidth, windowHeight);
 
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 }
 
