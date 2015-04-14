@@ -23,8 +23,15 @@ Renderer::Renderer(int windowWidth, int windowHeight, int windowPosX, int window
 
 	glViewport(windowPosX, windowPosY, windowWidth, windowHeight);
 
+
+
+
+#if GEOM_NORMALS || GEOM_EXPLODE
 	glEnable(GL_DEPTH_TEST);
+#endif
+#if PARTICLES_NORMAL || PARTICLES_BILLBOARDED
 	glEnable(GL_BLEND);
+#endif
 }
 
 

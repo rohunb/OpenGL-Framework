@@ -8,6 +8,12 @@
 #include "GameObject.h"
 #include "Light.h"
 
+#define GEOM_NORMALS 1
+#define GEOM_EXPLODE 0
+#define PARTICLES_NORMAL 0
+#define PARTICLES_BILLBOARDED 0
+
+
 namespace rb
 {
 	class Renderer

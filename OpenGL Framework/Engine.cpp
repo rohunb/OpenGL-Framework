@@ -8,6 +8,9 @@
 #include "Debug.h"
 #include "ParticleSystem.h"
 
+
+
+
 using namespace rb;
 Engine::Engine()
 {
@@ -136,9 +139,11 @@ void Engine::Render()
 	glUseProgram(0);*/
 	///temp for reflective
 	
+#if GEOM_EXPLODE || GEOM_NORMALS
 	renderer->RenderGameObject(testObj, camera);
-	
-	//particleSystem->Render(camera);
+#endif // GEOM_EXPLODE || GEOM_NORMALS
+
+#if GEOM_NORMALS
 	//normal geom shader
 	//////////////////////////////////////////////////////////////////////////
 	Shader* normalShader = ShaderManager::GetShader(Shader::ShaderType::DisplayNormals);
@@ -150,7 +155,10 @@ void Engine::Render()
 	testObj->GetModel()->Render();
 	glUseProgram(0);
 	//////////////////////////////////////////////////////////////////////////
-
+#endif
+#if PARTICLES_NORMAL || PARTICLES_BILLBOARDED
+	particleSystem->Render(camera);
+#endif
 	renderer->PostRender();
 }
 
@@ -169,7 +177,7 @@ void Engine::SetupScene()
 	//	ShaderManager::GetShader(Shader::LitUntextured),
 	//	Material(glm::vec3(.7f, 0.7f, 0.7f), glm::vec3(1.0f, 1.0f, 1.0f), 128.0f));
 
-	TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::TextureType::Diffuse);
+	//TextureManager::LoadTexture("Crate", "wooden crate.jpg", Texture::TextureType::Diffuse);
 	////TextureManager::LoadTexture("Crate", "de.tga");
 
 	//SimpleModel* textureCubeModel = new SimpleModel(PrimitiveType::Cube,
@@ -191,29 +199,44 @@ void Engine::SetupScene()
 	/*Model* testModel = new Model("Sphere Model/sphere.obj",
 		Material(TextureManager::GetTexture("Crate")),
 		ShaderManager::GetShader(Shader::ShaderType::LitTextured));
-	testObj = new GameObject(testModel);*/
+		testObj = new GameObject(testModel);*/
 
 	/*Model* reflectSphere = new Model("Sphere Model/sphere.obj",
 		ShaderManager::GetShader(Shader::Fresnel));
-	testObj = new GameObject(reflectSphere);*/
+		testObj = new GameObject(reflectSphere);*/
 
 	/*Model* nanosuit = new Model("nanosuit/nanosuit.obj",
 		ShaderManager::GetShader(Shader::Refract));
-	testObj = new GameObject(nanosuit, Vec3(0.0f, 0.0f, 0.0f), Mat4(1.0f), Vec3(0.2f));*/
-	
+		testObj = new GameObject(nanosuit, Vec3(0.0f, 0.0f, 0.0f), Mat4(1.0f), Vec3(0.2f));*/
+
 	TextureManager::LoadTexture("SmallShip", "small_ship.tga", Texture::TextureType::Diffuse);
 	Model* ship = new Model("SmallShip/shipA_OBJ.obj",
 		Material(TextureManager::GetTexture("SmallShip")),
+#if !GEOM_EXPLODE
 		ShaderManager::GetShader(Shader::ShaderType::LitTextured));
+#endif
+#if GEOM_EXPLODE
+		ShaderManager::GetShader(Shader::ShaderType::ExplodeUnlit));
+#endif
 	testObj = new GameObject(ship, Vec3(0.0f), RMatrix::Rotate(120.0f, RVector::up),Vec3(0.03f));
-	
-	//TextureManager::LoadTexture("Particle", "particle.png", Texture::TextureType::Diffuse);
+
+
+#if PARTICLES_NORMAL || PARTICLES_BILLBOARDED
 	TextureManager::LoadTexture("Particle", "2201.jpg", Texture::TextureType::Diffuse);
-	
 	particleSystem = new ParticleSystem(
 		TextureManager::GetTexture("Particle"), 
+#if PARTICLES_NORMAL
 		ShaderManager::GetShader(Shader::ShaderType::Particle),
 		50000);
+#else //billboarded
+	ShaderManager::GetShader(Shader::ShaderType::BillboardedParticle),
+		500);
+#endif // PARTICLES_NORMAL
+
+
+		
+#endif // PARTICLES_NORMAL || PARTICLES_BILLBOARDED
+
 
 
 }
